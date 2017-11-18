@@ -29,13 +29,13 @@
 			<div class="actions">
 				<table class="options">
 					<tr>
-						<td><button class="option"><a href="?recordingStart">Start Recording</a></button></td>
+						<td><a href="?recordingStart"><button class="option">Start Recording</button></a></td>
 						<td><button class="option">Real-time frequency display</button></td>
 						<td><button class="option" id="shut-down">Shut Down</button></td>
 					</tr>
 					<tr>
-						<td><button class="option"><a href="?recordingStop">Stop Recording</a></button></td>
-						<td><button class="option">Spectrogram display</button></td>
+						<td><a href="?recordingStop"><button class="option">Stop Recording</button></a></td>
+						<td><a href="spectogram.php"><button class="option">Spectrogram display</button></a></td>
 						<td><button class="option">Time expansion audio</button></td>
 					</tr>
 				</table>

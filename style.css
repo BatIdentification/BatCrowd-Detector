@@ -22,6 +22,7 @@ h3.subheading{
 	padding:2px;
 	width:60%;
 	margin:auto;
+	min-height:50%;
 }
 .options{
 	height:50%;
@@ -50,9 +51,16 @@ h3.subheading{
 	display:inline-block;
 	float:right;
 }
-.audiofile{
+.audiofile, #live-button{
 	margin-left:1%;
+	margin-top:2%;
+	display:block;
 }
-.audiofile:hover{
+.audiofile:hover, #live-button:hover{
 	cursor:pointer;
+}
+.back-button{
+	float:left;
+	text-decoration:none;
+	color:black;
 }

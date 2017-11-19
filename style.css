@@ -51,12 +51,12 @@ h3.subheading{
 	display:inline-block;
 	float:right;
 }
-.audiofile, #live-button{
+.audiofile{
 	margin-left:1%;
 	margin-top:2%;
 	display:block;
 }
-.audiofile:hover, #live-button:hover{
+.audiofile:hover{
 	cursor:pointer;
 }
 .selected{

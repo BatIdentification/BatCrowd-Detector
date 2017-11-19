@@ -59,8 +59,19 @@ h3.subheading{
 .audiofile:hover, #live-button:hover{
 	cursor:pointer;
 }
+.selected{
+	font-weight:bold;
+}
 .back-button{
 	float:left;
 	text-decoration:none;
 	color:black;
+	display:block;
+	margin: 2% 0 0 2%;
 }
+#spectrogram-img{
+	max-width:92%;
+	max-height:92%;
+	margin:0 auto;
+}
+

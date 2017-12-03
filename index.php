@@ -14,7 +14,6 @@
 		<script>
 			$(document).ready(function(){
 				$(".audiofile").click(function(event){
-					
 					source = $(event.target)[0].innerHTML;
 					console.log($(event.target));
 					audio = new Audio(source);
@@ -31,13 +30,13 @@
 				<table class="options">
 					<tr>
 						<td><a href="?recordingStart"><button class="option">Start Recording</button></a></td>
+						<td><button class="option">Start Sound activated recording</button></td>
 						<td><button class="option">Real-time frequency display</button></td>
-						<td><button class="option" id="shut-down">Shut Down</button></td>
 					</tr>
 					<tr>
 						<td><a href="?recordingStop"><button class="option">Stop Recording</button></a></td>
-						<td><a href="spectogram.php"><button class="option">Spectrogram display</button></a></td>
-						<td><button class="option">Time expansion audio</button></td>
+						<td><a href=""><button class="option">Stop sound activated recording</button></a></td>
+						<td><a href="spectogram.php"><button class="option">Spectrogram display</button></a></t>
 					</tr>
 				</table>
 			</div>

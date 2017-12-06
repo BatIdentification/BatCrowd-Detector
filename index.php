@@ -4,7 +4,7 @@
 		if(isset($_GET['recordingStart'])){
 				shell_exec("/var/www/commands/startRecording.sh");
 		}elseif(isset($_GET['recordingStop'])){
-				shell_exec("pkill -f arecord");
+				shell_exec("pkill -f rec");
 		}
     ?>
 	<head>

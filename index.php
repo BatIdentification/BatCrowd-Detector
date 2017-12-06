@@ -2,11 +2,15 @@
 	<?php
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
 		if(isset($_GET['recordingStart'])){
-				shell_exec("/var/www/commands/startRecording.sh");
+			shell_exec("/var/www/commands/startRecording.sh");
 		}elseif(isset($_GET['recordingStop'])){
-				shell_exec("pkill -f arecord");
+			shell_exec("pkill -f arecord");
+		}elseif(isset($_GET['soundStart'])){
+			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");	
+		}elseif(isset($_GET['soundStop'])){
+			shell_exec("pkill -6 rec;");
 		}
-    ?>
+  	 ?>
 	<head>
 		<title>BatPi</title>
 		<link rel="stylesheet" href="style.css?v=0.1">
@@ -30,12 +34,12 @@
 				<table class="options">
 					<tr>
 						<td><a href="?recordingStart"><button class="option">Start Recording</button></a></td>
-						<td><button class="option">Start Sound activated recording</button></td>
+						<td><a href="?soundStart"><button class="option">Start Sound activated recording</button></a></td>
 						<td><button class="option">Real-time frequency display</button></td>
 					</tr>
 					<tr>
 						<td><a href="?recordingStop"><button class="option">Stop Recording</button></a></td>
-						<td><a href=""><button class="option">Stop sound activated recording</button></a></td>
+						<td><a href="?soundStop"><button class="option">Stop sound activated recording</button></a></td>
 						<td><a href="spectogram.php"><button class="option">Spectrogram display</button></a></t>
 					</tr>
 				</table>

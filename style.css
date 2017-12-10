@@ -75,3 +75,19 @@ h3.subheading{
 	margin:0 auto;
 }
 
+.img-button{
+	margin-top:10%;
+	margin:10% auto;
+	height:30%;
+	cursor:pointer;
+}
+
+.stop-button{
+	display:none;
+	border: none;
+    margin: 0 auto;
+    height: 30px;
+    width: 70px;
+    background-color: darkgrey;
+}
+

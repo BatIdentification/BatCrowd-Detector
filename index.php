@@ -31,7 +31,7 @@
 					<tr>
 						<td><a href="?recordingStart"><button class="option">Start Recording</button></a></td>
 						<td><button class="option">Start Sound activated recording</button></td>
-						<td><button class="option">Real-time frequency display</button></td>
+						<td><a href="timeExpansion.php"><button class="option">Time Expansion</button></a></td>
 					</tr>
 					<tr>
 						<td><a href="?recordingStop"><button class="option">Stop Recording</button></a></td>

@@ -76,8 +76,7 @@ h3.subheading{
 }
 
 .img-button{
-	margin-top:10%;
-	margin:10% auto;
+	margin:10% auto 0 auto;
 	height:30%;
 	cursor:pointer;
 }
@@ -91,3 +90,7 @@ h3.subheading{
     background-color: darkgrey;
 }
 
+#speaker-status{
+	display:block;
+	margin-top:5%;
+}

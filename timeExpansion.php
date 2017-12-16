@@ -1,21 +1,22 @@
 <html>
 	<head>
 		<title>Time expansion</title>
-		<link rel="stylesheet" href="style.css?v=0.11">
+		<link rel="stylesheet" href="style.css?v=0.124">
 		<script src="jquery-3.2.1.min.js" type="text/javascript"></script>
 		<?php
 			echo("<script>var fileName='{$_GET['f']}';</script>");
 			if(isset($_GET['f'])){
-				if($_GET['f'] == "Live"){
-					shell_exec("arecord -Dhw:sndrpiwsp -r 192000 -c 2 -f S16_LE | sox -t wav -e signed-integer -b16 -r 192000 -c 2 /dev/stdin -t wav -e signed-integer -b16 -r 192000 -c 2 /dev/stdout sinc 10k speed 0.1 | aplay -D hw:sndrpiwsp -");
+				if($_GET['status'] == "External Speakers"){
+					shell_exec("sox {$_GET['f']} time-expansion-audio/{$_GET['f']} speed 0.1");
 				}else{
-					shell_exec("sox -t wav -e signed-integer -b16 -r 192000 -c 2 {$_GET['f']} -t wav -e signed-integer -b16 -r 192000 -c 2 /dev/stdout sinc 10k speed 0.1 |  aplay -D hw:sndrpiwsp -");
-				}
+					shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null &");
+				}			
 			}elseif(isset($_GET['stop'])){
 				shell_exec("pkill -6 sox");
 			}
 		?>
 		<script>
+			speakerStatus = "Internal Speakers";
 			$(document).ready(function(){
 				if(fileName != ""){
 					$(".audiofile:contains(" + fileName + ")").eq(0).addClass("selected");
@@ -23,8 +24,22 @@
 				}
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;
-					window.location = "?f=" + source;		
-				})
+					if(speakerStatus == 'External Speakers'){
+						$.get("time-expansion-audio/" + source)
+    							.done(function() {
+								audio = new Audio("time-expansion-audio/" + source);
+        			 				audio.play();
+    							}).fail(function() { 
+       								window.location="?f=" + source + "&status=" + speakerStatus;
+    							})
+					}else{
+						window.location = "?f=" + source + "&status=" + speakerStatus;		
+					}	
+				});
+				$(".img-button").click(function(event){
+					$("#speaker-status").html("Current: " + $(event.target).attr('value'));
+					speakerStatus = $(event.target).attr('value');
+				});
 			})
 		</script>
 	</head>
@@ -34,8 +49,9 @@
 			<h3 class="heading">Time expansion</h3>
 			<div class="actions">
 				<a href="?stop"><button class="stop-button">Stop</button></a>
-				<img class="img-button" src="images/internal-speakers.png">
-				<img class="img-button" src="images/external-speakers.png">
+				<img class="img-button" value="Internal Speakers" src="images/internal-speakers.png">
+				<img class="img-button" value="External Speakers" src="images/external-speakers.png">
+				<a id="speaker-status">Current: Internal Speakers</a>
 			</div>
 		</div>
 		<div class="side-bar">

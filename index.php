@@ -1,5 +1,7 @@
 <html>
 	<?php
+		putenv("AUDIODEV=hw:0,0");
+		putenv("AUDIODRIVER=alsa");
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
 		if(isset($_GET['recordingStart'])){
 			shell_exec("/var/www/commands/startRecording.sh");
@@ -34,7 +36,7 @@
 				<table class="options">
 					<tr>
 						<td><a href="?recordingStart"><button class="option">Start Recording</button></a></td>
-						<td><button class="option">Start Sound activated recording</button></td>
+						<td><a href="?soundStart"><button class="option">Start Sound activated recording</button></a></td>
 						<td><a href="timeExpansion.php"><button class="option">Time Expansion</button></a></td>
 					</tr>
 					<tr>

@@ -3,19 +3,14 @@ body{
 }
 h3.heading{
 	text-align:center;
-	display:inline-block;
 	height:2%;
-	position:absolute;
-	left:35%;
+	font-size:1.25rem;
 }
 h3.subheading{
 	text-align:center;
 }
 .content{
-	width:80%;
-	display:inline-flex;
 	height:100%;
-	text-align:center;
 }
 .actions{
 	background-color:LightGray;
@@ -23,10 +18,12 @@ h3.subheading{
 	width:60%;
 	margin:auto;
 	min-height:50%;
+	margin-top:10%;
 }
 .options{
 	height:50%;
 	width:100%;
+	font-size:12px;
 }
 .options tr{
 	width:25%;
@@ -45,16 +42,13 @@ h3.subheading{
 	background-color:red;
 }
 .side-bar{
-	height:100%;
-	width:20%;
 	background-color:LightGray;
-	display:inline-block;
-	float:right;
 }
 .audiofile{
 	margin-left:1%;
 	margin-top:2%;
 	display:block;
+	font-size:15px;
 }
 .audiofile:hover{
 	cursor:pointer;
@@ -76,8 +70,7 @@ h3.subheading{
 }
 
 .img-button{
-	margin-top:10%;
-	margin:10% auto;
+    margin: 10% auto 0 auto;
 	height:30%;
 	cursor:pointer;
 }
@@ -89,5 +82,9 @@ h3.subheading{
     height: 30px;
     width: 70px;
     background-color: darkgrey;
+}
+
+#speaker-status{
+	display:block;
 }
 

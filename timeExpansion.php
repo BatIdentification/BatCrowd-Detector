@@ -9,28 +9,35 @@
 		<?php
 			echo("<script>var fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
 			if(isset($_GET['f'])){
-				if($_GET['status'] == "External Speakers"){
-					shell_exec("sox {$_GET['f']} time-expansion-audio/{$_GET['f']} speed 0.1");
+				if($_GET['status'] == "Internal Speakers"){
+					shell_exec("sox {$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1");
 				}else{
-					shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null &");
+					if(file_exists("time-expansion-audio/{$_GET['f']}")){
+						shell_exec("aplay time-expansion-audio/{$_GET['f']}");
+					}else{
+						shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null &");
+					}
 				}			
 			}elseif(isset($_GET['stop'])){
 				shell_exec("pkill -6 sox");
 			}
 		?>
 		<script>
-			speakerStatus = "Internal Speakers";
+			speakerStatus = "External Speakers";
 			$(document).ready(function(){
 				if(fileName != ""){
 					$(".audiofile:contains(" + fileName + ")").eq(0).addClass("selected");
 					$(".stop-button").css("display", "block");
-				}else if(status.includes("External Speakers")){
-					console.log("Hello");
-					$("#speaker-status").html("Current: External Speakers");
+				}
+				if(status.includes("Internal Speakers")){
+					playAudio(fileName);
+					$("#speaker-status").html("Current: Internal Speakers");
+					speakerStatus = "Internal Speakers";
+					isLiveAvailable()
 				}
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;
-					if(speakerStatus == 'External Speakers'){
+					if(speakerStatus == 'External Speakers' && ($(event.target).attr("class").includes("unavilable") == false)){
 						$.get("time-expansion-audio/" + source)
     							.done(function() {
 								audio = new Audio("time-expansion-audio/" + source);
@@ -45,8 +52,32 @@
 				$(".img-button").click(function(event){
 					$("#speaker-status").html("Current: " + $(event.target).attr('value'));
 					speakerStatus = $(event.target).attr('value');
+					isLiveAvailable();
 				});
+				
 			})
+			function playAudio(filePath){
+				$.ajax({
+    					url:'time-expansion-audio/' + filePath,
+    					type:'HEAD',
+    					error: function()
+    					{
+        					setInterval(playAudio, 500, filePath);
+    					},
+    					success: function()
+    					{
+						audio = new Audio("time-expansion-audio/" + filePath);
+						audio.play();
+    					}	
+				});
+			}
+			function isLiveAvailable(){
+				if(speakerStatus == "Internal Speakers"){
+					$("#live-audio").addClass("unavailable");
+				}else{
+					$("#live-audio").removeClass("unavailable");
+				}
+			}
 		</script>
 	</head>
 	<body>	
@@ -67,6 +98,7 @@
 					</ul>
 					<ul class="nav navbar-nav side-nav">
 						<h4>Audio files</h3>
+						<li><a id="live-audio" class="audiofile">Live</a></li>
 						<?php
 							$files = scandir(getcwd());
 							foreach($files as $key => $value){
@@ -85,10 +117,10 @@
 					<div class="content actions">
 						<div class="row output-options">
 							<div class="col-sm-6">
-								<img class="img-button" src="images/internal-speakers.png">
+								<img class="img-button" src="images/external-speakers.png" value="External Speakers">
 							</div>
 							<div class="col-sm-6">
-								<img class="img-button" src="images/external-speakers.png">
+								<img class="img-button" src="images/internal-speakers.png" value="Internal Speakers">
 							</div>
 						</div>
 						<div> 

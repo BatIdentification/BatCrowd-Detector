@@ -54,6 +54,7 @@
 				<div class="collapse navbar-collapse" id="collapseable">
 					<ul class="nav navbar-nav side-nav">
 						<h4>Audio files</h3>
+						<li><a class="audiofile">Live</a></li>
 						<?php
 							$files = scandir(getcwd());
 							foreach($files as $key => $value){

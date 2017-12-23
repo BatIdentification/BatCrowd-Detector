@@ -94,5 +94,14 @@
 	color:black;
 }
 
-.output-options{
+.audiofile{
+	cursor:pointer;
+}
+
+.unavailable{
+	cursor:not-allowed;
+	opacity:0.5;
+}
+.unavailable:hover{
+	color: #777 !important;
 }

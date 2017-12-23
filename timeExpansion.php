@@ -4,7 +4,7 @@
 		<link rel="stylesheet" href="style.css?v=0.124">
 		<script src="jquery-3.2.1.min.js" type="text/javascript"></script>
 		<?php
-			echo("<script>var fileName='{$_GET['f']}';</script>");
+			echo("<script>var fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
 			if(isset($_GET['f'])){
 				if($_GET['status'] == "External Speakers"){
 					shell_exec("sox {$_GET['f']} time-expansion-audio/{$_GET['f']} speed 0.1");
@@ -21,6 +21,9 @@
 				if(fileName != ""){
 					$(".audiofile:contains(" + fileName + ")").eq(0).addClass("selected");
 					$(".stop-button").css("display", "block");
+				}else if(status.includes("External Speakers")){
+					console.log("Hello");
+					$("#speaker-status").html("Current: External Speakers");
 				}
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;

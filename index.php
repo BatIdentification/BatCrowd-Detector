@@ -10,7 +10,7 @@
 		}elseif(isset($_GET['soundStart'])){
 			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");	
 		}elseif(isset($_GET['soundStop'])){
-			shell_exec("pkill rec;");
+			shell_exec("pkill bash; pkill rec;");
 		}
   	 ?>
 	<head>

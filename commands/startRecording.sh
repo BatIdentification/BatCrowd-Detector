@@ -1,4 +1,8 @@
-#!/bin/bash
+echo "Test" > log2.txt
+whoami > log2.txt
+
+export AUDIODEV=hw:0,0
+export AUDIODRIVER=alsa
+
 today=$(date '+%F-%H-%M-%S')
-echo $today.wav >> log.txt
-rec -c1 -r 192000 $today.wav sinc 10k >> log.txt &
+rec -c 2 -r 192000 $today.wav sinc 10k & > log.txt

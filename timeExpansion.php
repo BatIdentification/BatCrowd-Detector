@@ -10,20 +10,16 @@
 			echo("<script>var fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
 			if(isset($_GET['f'])){
 				if($_GET['status'] == "Internal Speakers"){
-					shell_exec("sox {$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1");
+					shell_exec("sox {$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
 				}else{
-					if(file_exists("time-expansion-audio/{$_GET['f']}")){
-						shell_exec("aplay time-expansion-audio/{$_GET['f']}");
-					}else{
-						shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null &");
-					}
+					shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null");
 				}			
 			}elseif(isset($_GET['stop'])){
-				shell_exec("pkill -6 sox");
+				shell_exec("pkill -6 sox; pkill -6 aplay");
 			}
 		?>
 		<script>
-			speakerStatus = "External Speakers";
+			speakerStatus = "BatPi's Speaker";
 			$(document).ready(function(){
 				if(fileName != ""){
 					$(".audiofile:contains(" + fileName + ")").eq(0).addClass("selected");
@@ -37,7 +33,7 @@
 				}
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;
-					if(speakerStatus == 'External Speakers' && ($(event.target).attr("class").includes("unavilable") == false)){
+					if(speakerStatus == 'Internal Speakers' && ($(event.target).attr("class").includes("unavilable") == false)){
 						$.get("time-expansion-audio/" + source)
     							.done(function() {
 								audio = new Audio("time-expansion-audio/" + source);
@@ -46,7 +42,7 @@
        								window.location="?f=" + source + "&status=" + speakerStatus;
     							})
 					}else{
-						window.location = "?f=" + source + "&status=" + speakerStatus;		
+						window.location = "?f=" + source + "&status=" + speakerStatus.replace("\'", "");		
 					}	
 				});
 				$(".img-button").click(function(event){
@@ -117,14 +113,14 @@
 					<div class="content actions">
 						<div class="row output-options">
 							<div class="col-sm-6">
-								<img class="img-button" src="images/external-speakers.png" value="External Speakers">
+								<img class="img-button" src="images/external-speakers.png" value="BatPis Speakers">
 							</div>
 							<div class="col-sm-6">
 								<img class="img-button" src="images/internal-speakers.png" value="Internal Speakers">
 							</div>
 						</div>
 						<div> 
-						<a id='speaker-status'>Current: Internal Speakers</a>
+						<a id='speaker-status'>Current: BatPi's Speakers</a>
 						<a href="?stop"><button class="stop-button">Stop</button></a>
 						</div>
 					</div>

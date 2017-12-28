@@ -6,11 +6,11 @@
 		if(isset($_GET['recordingStart'])){
 			shell_exec("/var/www/commands/startRecording.sh");
 		}elseif(isset($_GET['recordingStop'])){
-			shell_exec("pkill -6 rec");
+			shell_exec("pkill rec");
 		}elseif(isset($_GET['soundStart'])){
 			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");	
 		}elseif(isset($_GET['soundStop'])){
-			shell_exec("pkill -6 rec;");
+			shell_exec("pkill rec;");
 		}
   	 ?>
 	<head>
@@ -22,6 +22,7 @@
 		<script src="dist/js/bootstrap.min.js"></script>
 		<script>
 			$(document).ready(function(){
+				tellBatPiTime();
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;
 					console.log($(event.target));
@@ -30,6 +31,11 @@
 					audio.play();
 				})
 			})
+			function tellBatPiTime(){
+				var d = new Date();
+				currentDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
+				$.post("setTime.php", {time: currentDate});
+			}
 		</script>
 	</head>
 	<body>	
@@ -68,7 +74,7 @@
 								<a href="?recordingStart"><button class="option">Start Recording</button></a></td>
 							</div>
 							<div class="col-sm-4">
-								<button class="option">Start Sound activated recording</button></td>
+								<a href="?soundStart""><button class="option">Start Sound activated recording</button></td>
 							</div>
 							<div class="col-sm-4">
 								<a href="timeExpansion.php"><button class="option">Time Expansion</button></a></td>

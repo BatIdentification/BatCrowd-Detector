@@ -21,7 +21,8 @@
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<script src="dist/js/bootstrap.min.js"></script>
 		<?php
-			echo("<script>var fileName='{$_GET['f']}';</script>");
+			$fileName = isset($_GET['f']) ? $_GET['f'] : "";
+			echo("<script>var fileName='$fileName';</script>");
 		?>
 		<script>
 			$(document).ready(function(){

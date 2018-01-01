@@ -11,6 +11,7 @@
 			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");	
 		}elseif(isset($_GET['soundStop'])){
 			shell_exec("pkill bash; pkill rec;");
+			shell_exec("find *.wav -type f -size -100 -delete");
 		}
   	 ?>
 	<head>

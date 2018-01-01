@@ -27,10 +27,10 @@
 					$(".stop-button").css("display", "block");
 				}
 				if(status.includes("Internal Speakers")){
-					playAudio(fileName);
 					$("#speaker-status").html("Current: Internal Speakers");
 					speakerStatus = "Internal Speakers";
 					isLiveAvailable()
+					playAudio(fileName);
 				}
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;
@@ -65,7 +65,7 @@
     					type:'HEAD',
     					error: function()
     					{
-        					setInterval(playAudio, 500, filePath);
+        					setInterval(playAudio, 1000, filePath);
     					},
     					success: function()
     					{

@@ -17,7 +17,7 @@
 		<title>Spectogram</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="dist/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="css/style2.css">
+		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<script src="dist/js/bootstrap.min.js"></script>
 		<?php
@@ -33,11 +33,36 @@
 					source = $(event.target)[0].innerHTML;
 					window.location = "?f=" + source;
 				})
+				$(document).on("click", "a#nextPage" , function() {
+            		console.log($( this ).prevAll())
+            		$(this).parent().prevAll().slice(0, -2).remove();
+            		$(this).remove();
+            		addNextButton();
+       			});
+				addNextButton();
 				setInterval(function(){
 					var randInt = Math.random();
 					$("#spectrogram-img").attr("src", "spec.png?v=" + randInt);
 				}, 2000);
 			})
+			function addNextButton(){
+				sideNav = $(".side-nav")[0];
+				if(sideNav.offsetHeight < sideNav.scrollHeight){
+					$(".audiofile").each(function(){
+						rect = this.getBoundingClientRect();
+						if(rect.bottom > sideNav.offsetHeight){
+							if((rect.bottom - sideNav.offsetHeight) < 21){
+								$("<li><a id='nextPage'>Next</a></li>").insertBefore($(this).parent());
+							}else{
+								i = $(".audiofile").index(this)	
+								previousElement = $(".audiofile")[i - 1]
+								$("<li><a id='nextPage'>Next</a></li>").insertBefore($(previousElement).parent())
+							}
+							return false;
+						}
+					});					
+				}
+			}
 		</script>
 	</head>
 	<body>	

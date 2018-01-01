@@ -1,78 +1,81 @@
-body{
-	margin:0;
+.navbar-default{
+	border-radius:0px;
 }
-h3.heading{
-	text-align:center;
-	height:2%;
-	font-size:1.25rem;
-}
-h3.subheading{
-	text-align:center;
-}
+
 .content{
-	height:100%;
-}
-.actions{
-	background-color:LightGray;
-	padding:2px;
-	width:60%;
+	background-color:#e6e6e6;
+	padding:1%;
+	width:70%;
 	margin:auto;
-	min-height:50%;
+	min-height:30%;
 	margin-top:10%;
+	text-align:center;
 }
-.options{
-	height:50%;
-	width:100%;
-	font-size:12px;
+
+.actions{	
+	display:flex;
+	justify-content:space-between;
+	flex-direction:column;
+	min-height:50%;
 }
-.options tr{
-	width:25%;
+.actions>.row>.col-sm-4{
+	text-align:center;
+}
+.actions>.row>.col-sm-4>a{
+	color:black;
 }
 .option{
 	background-color:white;
-	width:100%;
-	height:40%;
+	width:80%;
+	height:15%;
 	border:0.5px black solid;
 	border-radius:3px;
 }
-.commands{
-	text-align:center;
+@media (min-width: 768px){
+	.side-nav{
+		position:fixed;
+		top:50px;
+		border:none;
+		background-color:#f8f8f8;
+		border-radius:0;
+		height:100%;
+		width:15%;
+		right:250;
+		margin-right:-250;
+		overflow-y:hidden;
+		border-left:1px #e7e7e7 solid;
+	}
+	.side-nav>h4{
+		text-align:center;
+	}
+	.side-nav li{
+		width:100%;
+		font-size:15px;
+	}
+	.img-button{
+		max-width:70%;
+   	 	margin:5%;
+   	 	cursor:pointer;
+	}
 }
-#shut-down{
-	background-color:red;
+@media(max-width: 767px){
+	.actions>.row>.col-sm-4{
+		margin-top:3%;
+	}
+	.img-button{
+		max-width:45%;
+   		margin:5%;
+   		cursor:pointer;
+	}
+	.side-nav>h4{
+		padding-left:15px;
+	}
 }
-.side-bar{
-	background-color:LightGray;
-}
-.audiofile{
-	margin-left:1%;
-	margin-top:2%;
-	display:block;
-	font-size:15px;
-}
-.audiofile:hover{
-	cursor:pointer;
-}
-.selected{
-	font-weight:bold;
-}
-.back-button{
-	float:left;
-	text-decoration:none;
-	color:black;
-	display:block;
-	margin: 2% 0 0 2%;
-}
+
 #spectrogram-img{
 	max-width:92%;
 	max-height:92%;
 	margin:0 auto;
-}
-
-.img-button{
-    margin: 10% auto 0 auto;
-	height:30%;
-	cursor:pointer;
 }
 
 .stop-button{
@@ -85,7 +88,29 @@ h3.subheading{
 }
 
 #speaker-status{
+	margin-top:5%;
 	display:block;
-}
+	text-decoration:none;
+	color:black;
 }
 
+.audiofile{
+	cursor:pointer;
+}
+
+.unavailable{
+	cursor:not-allowed;
+	opacity:0.5;
+}
+.unavailable:hover{
+	color: #777 !important;
+}
+
+#nextPage{
+	text-align:center;
+	margin-bottom: 1;
+}
+
+.selected{
+	color:#404040 !important;
+}

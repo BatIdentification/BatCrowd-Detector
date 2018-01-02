@@ -6,8 +6,9 @@
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="js/default.js" type="text/javascript"></script>
 		<?php
-			echo("<script>var fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
+			echo("<script>fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
 			if(isset($_GET['f'])){
 				if($_GET['status'] == "Internal Speakers"){
 					shell_exec("sox {$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
@@ -20,8 +21,9 @@
 		?>
 		<script>
 			speakerStatus = "BatPi's Speaker";
-			var foundPlayingFile = false;
+			staticElements = 2;
 			$(document).ready(function(){
+				addPageButtons();
 				if(fileName != ""){
 					$(".audiofile:contains(" + fileName + ")").eq(0).addClass("selected");
 					$(".stop-button").css("display", "block");
@@ -51,13 +53,6 @@
 					speakerStatus = $(event.target).attr('value');
 					isLiveAvailable();
 				});
-				$(document).on("click", "a#nextPage" , function() {
-            		console.log($( this ).prevAll())
-            		$(this).parent().prevAll().slice(0, -2).remove();
-            		$(this).remove();
-            		addNextButton();
-       			});
-				addNextButton();
 			});
 			function playAudio(filePath){
 				$.ajax({
@@ -79,35 +74,6 @@
 					$("#live-audio").addClass("unavailable");
 				}else{
 					$("#live-audio").removeClass("unavailable");
-				}
-			}
-			function addNextButton(){
-				foundElement = undefined;
-				sideNav = $(".side-nav")[0];
-				//Check if there are more files than the height of the bar
-				if(sideNav.offsetHeight < sideNav.scrollHeight){
-					$(".audiofile").each(function(){
-						//Check if a file is currently playing
-						if(fileName != "" && foundPlayingFile == false){	
-							//Check if this <li> element corresponds to that file
-							foundPlayingFile = this.innerHTML == fileName ? true : false;
-							foundElement = this
-						}
-						rect = this.getBoundingClientRect();
-						//The bottom of this <a> tag is not visible
-						if(rect.bottom > sideNav.offsetHeight){
-							i = $(".audiofile").index(this)	
-							lastElement = (rect.bottom - sideNav.offsetHeight) < 21 ? this : $(".audiofile")[i - 1]
-							//We are playing a file and it is not in this row of files, therefore we need to get rid of all of the currently visible audiofiles
-							//Runs if we havn't found the file yet, if the playing audio file is the not going to be visible. Because this function found it, it will stop here but we need it to go forward one more page to see the audiofile
-							if(fileName != "" && foundPlayingFile == false || fileName == this.innerHTML || foundElement == lastElement){
-								$(lastElement).parent().prevAll().slice(0, -2).remove();
-							}else{
-								$("<li><a id='nextPage'>Next</a></li>").insertBefore($(lastElement).parent());
-								return false;
-							}
-						}
-					});					
 				}
 			}
 		</script>

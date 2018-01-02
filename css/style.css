@@ -106,11 +106,25 @@
 	color: #777 !important;
 }
 
-#nextPage{
-	text-align:center;
+.pageControl{
 	margin-bottom: 1;
+	display:inline-block !important;
 }
 
 .selected{
 	color:#404040 !important;
+}
+
+.center-text{
+	text-align:center;	
+	cursor:pointer;
+}
+
+.bottom-of-div{
+	position: absolute !important;
+    bottom: 7%;
+}
+
+.hidden{
+	display:none;
 }

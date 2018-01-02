@@ -21,9 +21,11 @@
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="js/default.js" type="text/javascript"></script>
 		<script>
 			$(document).ready(function(){
 				tellBatPiTime();
+				addPageButtons();
 				$(".audiofile").click(function(event){
 					$(event.target).addClass("selected");
 					console.log($(event.target));
@@ -34,37 +36,7 @@
     					$(event.target).removeClass("selected");
 					});
 				})
-				$(document).on("click", "a#nextPage" , function() {
-            		console.log($( this ).prevAll())
-            		$(this).parent().prevAll().slice(0, -1).remove();
-            		$(this).remove();
-            		addNextButton();
-       			});
-				addNextButton();
 			})
-			function addNextButton(){
-				sideNav = $(".side-nav")[0];
-				if(sideNav.offsetHeight < sideNav.scrollHeight){
-					$(".audiofile").each(function(){
-						rect = this.getBoundingClientRect();
-						if(rect.bottom > sideNav.offsetHeight){
-							if((rect.bottom - sideNav.offsetHeight) < 21){
-								$("<li><a id='nextPage'>Next</a></li>").insertBefore($(this).parent());
-							}else{
-								i = $(".audiofile").index(this)	
-								previousElement = $(".audiofile")[i - 1]
-								$("<li><a id='nextPage'>Next</a></li>").insertBefore($(previousElement).parent())
-							}							
-							return false;
-						}
-					});					
-				}
-			}
-			function tellBatPiTime(){
-				var d = new Date();
-				currentDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
-				$.post("setTime.php", {time: currentDate});
-			}
 		</script>
 	</head>
 	<body>	

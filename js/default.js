@@ -9,7 +9,7 @@ pages = [];
 function tellBatPiTime(){
 	var d = new Date();
 	currentDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
-	$.post("setTime.php", {time: currentDate});
+	$.post("commands.php", {time: currentDate});
 }
 
 function addPageButtons(){
@@ -46,6 +46,7 @@ function addPageButtons(){
 						$("li.center-text").css("margin-top", liTopMargin);
 					}		
 					return false;
+					foundPlayingFile = 2;
 				}
 			}
 		});					
@@ -78,5 +79,8 @@ $(document).ready(function(){
 		});
 		$(this).parent().remove();
 		addPageButtons();
+	});
+	$(document).click(function(){
+		$.post("commands.php", {shutdown: true});
 	});
 });

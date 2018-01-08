@@ -94,6 +94,7 @@
 				<div class="collapse navbar-collapse" id="collapseable">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
+						<li><a id="shutdown">Shutdown</a></li>
 					</ul>
 					<ul class="nav navbar-nav side-nav">
 						<h4>Audio files</h3>

@@ -64,6 +64,9 @@
 							}
 						?>
 					</ul>
+					<ul class="nav navbar-nav">
+						<li><a id="shutdown">Shutdown</a></li>
+					</ul>
 				</div>
 			</div>
 		</nav>

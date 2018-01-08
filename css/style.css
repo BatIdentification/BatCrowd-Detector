@@ -128,3 +128,7 @@
 .hidden{
 	display:none;
 }
+
+#shutdown{
+	cursor:pointer;
+}

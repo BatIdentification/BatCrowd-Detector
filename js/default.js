@@ -80,7 +80,7 @@ $(document).ready(function(){
 		$(this).parent().remove();
 		addPageButtons();
 	});
-	$(document).click(function(){
+	$("#shutdown").click(function(){
 		$.post("commands.php", {shutdown: true});
 	});
 });

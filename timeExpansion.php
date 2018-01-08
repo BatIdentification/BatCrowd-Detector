@@ -99,7 +99,7 @@
 						<h4>Audio files</h3>
 						<li><a id="live-audio" class="audiofile">Live</a></li>
 						<?php
-							$files = scandir(getcwd());
+							$files = scandir(getcwd(), SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
 								if(strpos($value, ".wav") !== false){
 									echo("<li><a class='audiofile'>{$value}</a></li>");

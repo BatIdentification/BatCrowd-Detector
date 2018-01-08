@@ -10,7 +10,7 @@
 		}elseif(isset($_GET['soundStart'])){
 			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");	
 		}elseif(isset($_GET['soundStop'])){
-			shell_exec("pkill bash; pkill rec;");
+			shell_exec("pkill -f startSoundActivatedRecording.sh; pkill rec;");
 			shell_exec("find *.wav -type f -size -100 -delete");
 		}
   	 ?>
@@ -56,7 +56,7 @@
 					<ul class="nav navbar-nav side-nav">
 						<h4>Audio files</h3>
 						<?php
-							$files = scandir(getcwd());
+							$files = scandir(getcwd(), SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
 								if(strpos($value, ".wav") !== false){
 									echo("<li><a class='audiofile'>{$value}</a></li>");

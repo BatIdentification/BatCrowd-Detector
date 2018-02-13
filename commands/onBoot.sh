@@ -5,4 +5,6 @@
 export AUDIODEV=hw:0,0
 export AUDIODRIVER=alsa
 
-
+sudo cp /etc/network/access-point-interfaces /etc/network/interfaces;
+sudo ifdown wlan0;
+sudo ifup wlan0;

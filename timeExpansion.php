@@ -38,13 +38,17 @@
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;
 					if(speakerStatus == 'Internal Speakers' && ($(event.target).attr("class").includes("unavilable") == false)){
-						$.get("time-expansion-audio/" + source)
-    							.done(function() {
+						$.ajax({
+							url: "time-expansion-audio/" + source,
+							type: 'HEAD',
+    							error: function() {
+								window.location="?f=" + source + "&status=" + speakerStatus;
+    							},
+							success: function() { 
 								audio = new Audio("time-expansion-audio/" + source);
-        			 				audio.play();
-    							}).fail(function() { 
-       								window.location="?f=" + source + "&status=" + speakerStatus;
-    							})
+                                                                audio.play();
+    							}
+						});
 					}else{
 						window.location = "?f=" + source + "&status=" + speakerStatus.replace("\'", "");		
 					}	

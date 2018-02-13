@@ -1,7 +1,6 @@
 <html>
 	<?php
-		putenv("AUDIODEV=hw:0,0");
-		putenv("AUDIODRIVER=alsa");
+		putenv("commands/onBoot.sh");
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
 		if(isset($_GET['recordingStart'])){
 			shell_exec("/var/www/commands/startRecording.sh");
@@ -10,7 +9,7 @@
 		}elseif(isset($_GET['soundStart'])){
 			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");	
 		}elseif(isset($_GET['soundStop'])){
-			shell_exec("pkill -f startSoundActivatedRecording.sh; pkill rec;");
+			shell_exec("pkill -f startSoundActivatedRecording.sh; pkill -9 rec;");
 			shell_exec("find *.wav -type f -size -100 -delete");
 		}
   	 ?>

@@ -8,7 +8,7 @@
 		}elseif(isset($_GET['recordingStop'])){
 			shell_exec("pkill rec");
 		}elseif(isset($_GET['soundStart'])){
-			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");	
+			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");
 		}elseif(isset($_GET['soundStop'])){
 			shell_exec("pkill -f startSoundActivatedRecording.sh; pkill rec;");
 			shell_exec("find *.wav -type f -size -100 -delete");
@@ -40,7 +40,7 @@
 			})
 		</script>
 	</head>
-	<body>	
+	<body>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -50,7 +50,7 @@
 					 	<span class="icon-bar"></span>
 					 	<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand">BatPi Interface</a>
+					<a class="navbar-brand">BatPi</a>
 				</div>
 				<div class="collapse navbar-collapse" id="collapseable">
 					<ul class="nav navbar-nav side-nav">
@@ -65,7 +65,8 @@
 						?>
 					</ul>
 					<ul class="nav navbar-nav">
-						<li><a id="shutdown">Shutdown</a></li>
+						<li><a id="settings">Shutdown</a></li>
+						<li><a id="settings" href="settings.php">Settings</a></li>
 					</ul>
 				</div>
 			</div>
@@ -74,6 +75,9 @@
 			<div class="row">
 				<div class="col-sm-10">
 					<div class="content actions">
+						<div class="header-div">
+							<p>Actions</p>
+						</div>
 						<div class="row">
 							<div class="col-sm-4">
 								<a href="?recordingStart"><button class="option">Start Recording</button></a></td>
@@ -83,7 +87,7 @@
 							</div>
 							<div class="col-sm-4">
 								<a href="timeExpansion.php"><button class="option">Time Expansion</button></a></td>
-							</div>	
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">

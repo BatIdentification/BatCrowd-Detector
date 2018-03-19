@@ -8,9 +8,9 @@
 				if(!file_exists("spectrogram-images/{$_GET['f']}.png")){
 					shell_exec("sox /var/www/{$_GET["f"]} -n remix 1 rate 192k spectrogram -o /var/www/spectrogram-images/{$_GET['f']}.png >> log.txt & wait; cp 'spectrogram-images/{$_GET['f']}.png' spec.png");
 				}else{
-					shell_exec("cp -p 'spectrogram-images/{$_GET['f']}.png' spec.png");	
+					shell_exec("cp -p 'spectrogram-images/{$_GET['f']}.png' spec.png");
 				}
-			}			
+			}
 		}
 	?>
 	<head>
@@ -45,7 +45,7 @@
 			})
 		</script>
 	</head>
-	<body>	
+	<body>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -55,7 +55,7 @@
 					 	<span class="icon-bar"></span>
 					 	<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand">Spectrogram display</a>
+					<a class="navbar-brand" href="index.php">BatPi</a>
 				</div>
 				<div class="collapse navbar-collapse" id="collapseable">
 					<ul class="nav navbar-nav side-nav">
@@ -71,8 +71,8 @@
 						?>
 					</ul>
 					<ul class="nav navbar-nav">
-						<li><a href="index.php">Home</a></li>
 						<li><a id="shutdown">Shutdown</a></li>
+						<li><a href="settings.php">Settings</a></li>
 					</ul>
 				</div>
 			</div>
@@ -81,7 +81,12 @@
 			<div class="row">
 				<div class="col-sm-10">
 					<div class="content">
-						<img id="spectrogram-img" src="spec.png">
+						<div class="header-div">
+							<p>Spectrogram</p>
+						</div>
+						<div>
+							<img id="spectrogram-img" src="spec.png">
+						</div>
 					</div>
 				</div>
 			</div>

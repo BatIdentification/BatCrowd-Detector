@@ -209,6 +209,10 @@
 }
 
 .setting-option{
+	cursor:default;
+}
+
+.setting-option:not(.selected){
 	cursor:pointer;
 }
 

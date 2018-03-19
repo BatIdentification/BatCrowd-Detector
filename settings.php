@@ -22,6 +22,9 @@
 						console.log("Connecting");
 					}
 				})
+				$(".setting-option:not(.seleted)").click(function(){
+					 $.post("commands.php", {toggleWifi: true});
+				});
 			})
 		</script>
 	</head>

@@ -15,7 +15,7 @@
 					shell_exec("sox {$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
 				}else{
 					shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null");
-				}			
+				}
 			}elseif(isset($_GET['stop'])){
 				shell_exec("pkill -6 sox; pkill -6 aplay");
 			}
@@ -48,10 +48,10 @@
 								audio = new Audio("time-expansion-audio/" + source);
         			 				audio.play();
     							}
-						});
+    						});
 					}else{
-						window.location = "?f=" + source + "&status=" + speakerStatus.replace("\'", "");		
-					}	
+						window.location = "?f=" + source + "&status=" + speakerStatus.replace("\'", "");
+					}
 				});
 				$(".img-button").click(function(event){
 					$("#speaker-status").html("Current: " + $(event.target).attr('value'));
@@ -71,7 +71,7 @@
     					{
 						audio = new Audio("time-expansion-audio/" + filePath);
 						audio.play();
-    					}	
+    					}
 				});
 			}
 			function isLiveAvailable(){
@@ -83,7 +83,7 @@
 			}
 		</script>
 	</head>
-	<body>	
+	<body>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -93,12 +93,12 @@
 					 	<span class="icon-bar"></span>
 					 	<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand">Time Expansion</a>
+					<a class="navbar-brand" href="index.php">BatPi</a>
 				</div>
 				<div class="collapse navbar-collapse" id="collapseable">
 					<ul class="nav navbar-nav">
-						<li><a href="index.php">Home</a></li>
 						<li><a id="shutdown">Shutdown</a></li>
+						<li><a href="settings.php">Settings</a></li>
 					</ul>
 					<ul class="nav navbar-nav side-nav">
 						<h4>Audio files</h3>
@@ -119,6 +119,9 @@
 			<div class="row">
 				<div class="col-sm-10">
 					<div class="content actions">
+						<div class="header-div">
+							<p>Time-Expansion Playback</p>
+						</div>
 						<div class="row output-options">
 							<div class="col-sm-6">
 								<img class="img-button" src="images/external-speakers.png" value="BatPis Speakers">
@@ -127,7 +130,7 @@
 								<img class="img-button" src="images/internal-speakers.png" value="Internal Speakers">
 							</div>
 						</div>
-						<div> 
+						<div>
 						<a id='speaker-status'>Current: BatPi's Speakers</a>
 						<a href="?stop"><button class="stop-button">Stop</button></a>
 						</div>

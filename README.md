@@ -47,7 +47,7 @@ Clone the BatPi into here
 git clone https://github.com/richardbeattie/Bat-Pi.git
 ``` 
 
-<h4>The future</h4>
+<h3>The future</h3>
 
 <ul>
   <li>Intergrating the BatPi with the BatIdentification Project</li>

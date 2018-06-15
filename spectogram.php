@@ -38,10 +38,12 @@
 					source = $(event.target)[0].innerHTML;
 					window.location = "?f=" + source;
 				})
-				setInterval(function(){
-					var randInt = Math.random();
-					$("#spectrogram-img").attr("src", "spec.png?v=" + randInt);
-				}, 2000);
+				if(fileName == "Live"){
+					setInterval(function(){
+						var randInt = Math.random();
+						$("#spectrogram-img").attr("src", "spec.png?v=" + randInt);
+					}, 4000);
+				}
 			})
 		</script>
 	</head>
@@ -85,7 +87,10 @@
 							<p>Spectrogram</p>
 						</div>
 						<div>
-							<img id="spectrogram-img" src="spec.png">
+							<?php
+								$lastChange = @filemtime('spec.png');
+								echo("<img id='spectrogram-img' src='spec.png?v={$lastChange}'>");
+							?>
 						</div>
 					</div>
 				</div>

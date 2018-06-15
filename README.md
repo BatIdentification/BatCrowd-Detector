@@ -47,6 +47,15 @@ Clone the BatPi into here
 git clone https://github.com/richardbeattie/Bat-Pi.git
 ``` 
 
+<h3>The future</h3>
+
+<ul>
+  <li>Intergrating the BatPi with the BatIdentification Project</li>
+  <li>Improving the speed of the web-interface</li>
+  <li>Having a combined spectrogram and time-expansion viewer</li>
+  <li>Have the BatPi do the spectrograms and Time Expansion in advance of wanting a file to be played</li>
+</ul>
+
 
 
 

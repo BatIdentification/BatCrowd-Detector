@@ -3,7 +3,7 @@
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
 		if(isset($_GET['f'])){
 			if($_GET['f'] == "Live"){
-				shell_exec("commands/liveSpectrogram.sh &");
+				shell_exec("commands/liveSpectrogram.sh > log.txt 2>&1 &");
 			}elseif(file_exists($_GET['f'])){
 				if(!file_exists("spectrogram-images/{$_GET['f']}.png")){
 					shell_exec("sox /var/www/{$_GET["f"]} -n remix 1 rate 192k spectrogram -o /var/www/spectrogram-images/{$_GET['f']}.png >> log.txt & wait; cp 'spectrogram-images/{$_GET['f']}.png' spec.png");
@@ -38,10 +38,12 @@
 					source = $(event.target)[0].innerHTML;
 					window.location = "?f=" + source;
 				})
-				setInterval(function(){
-					var randInt = Math.random();
-					$("#spectrogram-img").attr("src", "spec.png?v=" + randInt);
-				}, 2000);
+				if(fileName == "Live"){
+					setInterval(function(){
+						var randInt = Math.random();
+						$("#spectrogram-img").attr("src", "spec.png?v=" + randInt);
+					}, 4000);
+				}
 			})
 		</script>
 	</head>
@@ -85,7 +87,10 @@
 							<p>Spectrogram</p>
 						</div>
 						<div>
-							<img id="spectrogram-img" src="spec.png">
+							<?php
+								$lastChange = @filemtime('spec.png');
+								echo("<img id='spectrogram-img' src='spec.png?v={$lastChange}'>");
+							?>
 						</div>
 					</div>
 				</div>

@@ -50,6 +50,9 @@
     							}
     						});
 					}else{
+						if(source == "Live" & document.getElementById('amplify').checked){
+							source = "Live-Amplify"
+						}
 						window.location = "?f=" + source + "&status=" + speakerStatus.replace("\'", "");
 					}
 				});
@@ -134,6 +137,7 @@
 						<a id='speaker-status'>Current: BatPi's Speakers</a>
 						<a href="?stop"><button class="stop-button">Stop</button></a>
 						</div>
+						<span>Amplify:<input type="checkbox" id="amplify"></span>
 					</div>
 				</div>
 			</div>

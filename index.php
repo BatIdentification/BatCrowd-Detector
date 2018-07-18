@@ -27,16 +27,6 @@
 			$(document).ready(function(){
 				tellBatPiTime();
 				addPageButtons();
-				$(".audiofile").click(function(event){
-					$(event.target).addClass("selected");
-					console.log($(event.target));
-					source = $(event.target)[0].innerHTML;
-					audio = new Audio(source);
-					audio.play();
-					audio.addEventListener("ended", function(){
-    					$(event.target).removeClass("selected");
-					});
-				})
 			})
 		</script>
 	</head>
@@ -59,7 +49,7 @@
 							$files = scandir(getcwd(), SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
 								if(strpos($value, ".wav") !== false){
-									echo("<li><a class='audiofile'>{$value}</a></li>");
+									echo("<li><a class='audiofile' href='{$value}' download>{$value}</a></li>");
 								}
 							}
 						?>

@@ -3,7 +3,7 @@
 case "$(pidof hostapd | wc -w)" in
 
 0) sudo /sbin/wpa_cli -i wlan0 disconnect;
-   cp /etc/network/access-point-interfaces /etc/network/interfaces;
+   sudo /bin/cp /etc/network/access-point-interfaces /etc/network/interfaces;
    sleep 5;
    sudo service networking restart;
    sleep 5;
@@ -13,7 +13,7 @@ case "$(pidof hostapd | wc -w)" in
    ;;
 1) sudo service hostapd stop;
    sudo service isc-dhcp-server stop;
-   cp /etc/network/client-mode-interfaces /etc/network/interfaces;
+   sudo /bin/cp /etc/network/client-mode-interfaces /etc/network/interfaces;
    sudo ifdown wlan0;
    sudo ifup wlan0;
    sudo /sbin/wpa_cli -i wlan0 reconnect;

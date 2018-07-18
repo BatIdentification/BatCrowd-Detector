@@ -3,18 +3,18 @@
 		<title>Time expansion</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="format-detection" content="telephone=no" />
-		<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
 		<?php
 			echo("<script>fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
 			if(isset($_GET['f'])){
 				if($_GET['status'] == "Internal Speakers"){
-					shell_exec("sox {$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
+					shell_exec("sox audiofiles/{$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
 				}else{
-					shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null");
+					shell_exec("commands/timeExpansion.sh audiofiles/{$_GET['f']} > /dev/null");
 				}
 			}elseif(isset($_GET['stop'])){
 				shell_exec("pkill -6 sox; pkill -6 aplay");
@@ -103,7 +103,7 @@
 						<h4>Audio files</h3>
 						<li><a id="live-audio" class="audiofile">Live</a></li>
 						<?php
-							$files = scandir(getcwd(), SCANDIR_SORT_DESCENDING);
+						  $files = scandir(getcwd() . '/audiofiles', SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
 								if(strpos($value, ".wav") !== false){
 									echo("<li><a class='audiofile'>{$value}</a></li>");

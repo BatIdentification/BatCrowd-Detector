@@ -6,10 +6,10 @@
 		<title>BatPi</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="format-detection" content="telephone=no" />
-		<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
 		<script>
 			$(document).ready(function(){

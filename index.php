@@ -18,10 +18,10 @@
 		<title>BatPi</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="format-detection" content="telephone=no" />
-		<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
 		<script>
 			$(document).ready(function(){
@@ -46,10 +46,10 @@
 					<ul class="nav navbar-nav side-nav">
 						<h4>Audio files</h3>
 						<?php
-							$files = scandir(getcwd(), SCANDIR_SORT_DESCENDING);
+							$files = scandir(getcwd() . '/audiofiles', SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
 								if(strpos($value, ".wav") !== false){
-									echo("<li><a class='audiofile' href='{$value}' download>{$value}</a></li>");
+									echo("<li><a class='audiofile' href='audiofiles/{$value}' download>{$value}</a></li>");
 								}
 							}
 						?>

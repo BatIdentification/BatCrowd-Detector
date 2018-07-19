@@ -15,13 +15,13 @@
 	//Enables or disables sound_activated recording
 	if(isset($_POST['sound_activated'])){
 
-		if($_POST['sound_activated'] == True){
+		if($_POST['sound_activated'] == "true"){
 
-			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");
+			shell_exec("/var/www/commands/startSoundActivatedRecording.sh &");
 
 		}else{
-
-			shell_exec("pkill -f startSoundActivatedRecording.sh; pkill rec;");
+			echo("Stopping ");
+			shell_exec("pkill -f /var/www/commands/startSoundActivatedRecording.sh; pkill -9 rec;");
 			//Delete all the empty wav files so they don't clutter up the directory
 			shell_exec("find *.wav -type f -size -100 -delete");
 

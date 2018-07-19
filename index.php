@@ -25,7 +25,7 @@
 
 					num_of_calls = num_of_calls == 0 ? response['num_calls'] : num_of_calls;
 
-					$("#sa_recorded").text("<b>Calls recorded:</b> " + (response['num_calls'] - num_of_calls));
+					$("#sa_recorded").text(response['num_calls'] - num_of_calls);
 
 					console.log(response['num_calls']);
 
@@ -42,9 +42,10 @@
 						$("#sound_activated_status").show();
 						count_interval = setInterval(updateCallsRecorded, 4000);
 					}else{
+						num_of_calls = 0;
 						$("#sound_activated_status").hide();
 						clearInterval(count_interval);
-						$("#sa_recorded").text("Calls recorded: 0");
+						$("#sa_recorded").text("0");
 					}
 				})
 				$(".recording_button").click(function(){
@@ -116,7 +117,7 @@
 					</div>
 					<div class="col-md-4 col-sm-offset-4" id="sound_activated_status">
 						 <h4>Sound Activated Recording Status</h4>
-						 <span id="sa_recorded"><b>Calls recorded:</b> 0</span>
+						 <b>Calls recorded: </b><span id="sa_recorded">0</span>
 					</div>
 				</div>
 			</div>

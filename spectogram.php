@@ -4,7 +4,7 @@
 		if(isset($_GET['f'])){
 			if($_GET['f'] == "Live"){
 				shell_exec("commands/liveSpectrogram.sh > log.txt 2>&1 &");
-			}elseif(file_exists($_GET['f'])){
+			}elseif(file_exists('audiofiles/' . $_GET['f'])){
 				if(!file_exists("spectrogram-images/{$_GET['f']}.png")){
 					shell_exec("sox /var/www/audiofiles/{$_GET["f"]} -n remix 1 rate 192k spectrogram -o /var/www/spectrogram-images/{$_GET['f']}.png >> log.txt & wait; cp 'spectrogram-images/{$_GET['f']}.png' spec.png");
 				}else{

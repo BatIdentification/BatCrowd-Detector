@@ -47,6 +47,13 @@ Clone the BatPi into here
 git clone https://github.com/richardbeattie/Bat-Pi.git
 ``` 
 
+Edit your <b>/etc/rc.local</b> to include
+
+```bash
+/var/www/commands/setupAccessPoint.sh &
+/var/www/commands/setupAudioCard.sh &
+```
+
 <h3>The future</h3>
 
 <ul>

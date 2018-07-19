@@ -8,6 +8,8 @@
 	//Shutdown the Pi
 	if(isset($_POST['shutdown'])){
 		shell_exec("sudo /sbin/shutdown now");
+	}elseif(isset($_POST['toggleWifi'])){
+		shell_exec("commands/toggleWifi.sh");
 	}
 
 	//Enables or disables sound_activated recording

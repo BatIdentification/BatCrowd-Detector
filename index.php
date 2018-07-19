@@ -26,7 +26,7 @@
 
 					num_of_calls = num_of_calls == 0 ? response['num_calls'] : num_of_calls;
 
-					$("#sa_recorded").text("Calls recorded: " + (response['num_calls'] - num_of_calls));
+					$("#sa_recorded").text("<b>Calls recorded:</b> " + (response['num_calls'] - num_of_calls));
 
 					console.log(response['num_calls']);
 

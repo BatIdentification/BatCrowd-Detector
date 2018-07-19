@@ -2,21 +2,7 @@
 	<?php
 		putenv("commands/setupAudioCard.sh");
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
-<<<<<<< HEAD
-  ?>
-=======
-		if(isset($_GET['recordingStart'])){
-			shell_exec("/var/www/commands/startRecording.sh");
-		}elseif(isset($_GET['recordingStop'])){
-			shell_exec("pkill rec");
-		}elseif(isset($_GET['soundStart'])){
-			shell_exec("/var/www/commands/startSoundActivatedRecording.sh");
-		}elseif(isset($_GET['soundStop'])){
-			shell_exec("pkill -f startSoundActivatedRecording.sh; pkill -9 rec;");
-			shell_exec("find *.wav -type f -size -100 -delete");
-		}
   	 ?>
->>>>>>> master
 	<head>
 		<title>BatPi</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

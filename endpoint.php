@@ -10,7 +10,7 @@
 
   if(isset($_POST['networks'])){
 
-    $networks = []
+    $networks = array();
 
     $command = "sudo /var/www/libraries/iw-4.9/iw wlan0 scan ap-force | grep SSID";
     $network_from_command = shell_exec($command);
@@ -31,7 +31,7 @@
       $networks[] = [$ssid, $status, $action];
     }
 
-    echo("{networks: " . $networks . '}');
+    echo('{"networks": ' . json_encode($networks) . '}');
 
   }
 

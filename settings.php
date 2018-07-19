@@ -26,7 +26,12 @@
 					 $.post("commands.php", {toggleWifi: true});
 				});
 				$.post('endpoint.php', {networks: true}, function(data){
-					console.log(data);
+					response = jQuery.parseJSON(data);
+					for(var i = 0; i < response['networks'].length; i++){
+						current = response['networks'][i]
+						networkRow = $(`<tr><td>${current[0]}</td><td>${current[1]}</td><td><a class='new-network'>${current[2]}</a></td></tr>`);
+						$("#available-networks").append($(networkRow));
+					}
 				})
 			})
 		</script>
@@ -72,7 +77,6 @@
 											<th>Status</th>
 											<th>Action</th>
 										</tr>
-										<tr><td>{$ssid}</td><td>{$status}</td><td><a class='new-network'>{$action}</a></td></tr>
 								</table>
 							</div>
 						</div>

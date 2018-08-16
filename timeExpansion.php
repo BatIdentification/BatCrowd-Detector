@@ -44,7 +44,7 @@
     							error: function() {
 								window.location="?f=" + source + "&status=" + speakerStatus;
     							},
-							success: function() { 
+							success: function() {
 								audio = new Audio("time-expansion-audio/" + source);
         			 				audio.play();
     							}
@@ -109,7 +109,7 @@
 						<?php
 						  $files = scandir(getcwd() . '/audiofiles', SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
-								if(strpos($value, ".wav") !== false){
+								if(strpos($value, ".wav") !== false && $value != "liveSpec.wav"){
 									echo("<li><a class='audiofile'>{$value}</a></li>");
 								}
 							}

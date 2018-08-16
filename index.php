@@ -2,7 +2,7 @@
 	<?php
 		putenv("commands/setupAudioCard.sh");
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
-  	 ?>
+  ?>
 	<head>
 		<title>BatPi</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +72,7 @@
 						<?php
 							$files = scandir(getcwd() . '/audiofiles', SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
-								if(strpos($value, ".wav") !== false){
+								if(strpos($value, ".wav") !== false && $value != "liveSpec.wav"){
 									echo("<li><a class='audiofile' href='audiofiles/{$value}' download>{$value}</a></li>");
 								}
 							}

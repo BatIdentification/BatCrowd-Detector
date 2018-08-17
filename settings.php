@@ -2,10 +2,7 @@
 	<?php
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
  		if(isset($_POST['password']) && isset($_POST['ssid'])){
-			$newConfig = 'network={
-	ssid="'.$_POST['ssid'].'"
-	psk="'.$_POST['password'].'"
-}';
+			$newConfig = 'network={ ssid="'.$_POST['ssid'].'" psk="'.$_POST['password'].'"}';
 			$file = "/etc/wpa_supplicant/wpa_supplicant.conf";
 			file_put_contents($file, $newConfig, FILE_APPEND);
 		}
@@ -14,20 +11,28 @@
 		<title>BatPi</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="format-detection" content="telephone=no" />
-		<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
 		<script>
 			$(document).ready(function(){
 				$(".new-network, .popup .btn-danger").click(function(){
 					$(".popup").toggle();
-					$("#ssid").val($(this).parents("tr").children().eq(0).text());					
+					$("#ssid").val($(this).parents("tr").children().eq(0).text());
 				})
 				$(".setting-option:not(.seleted)").click(function(){
 					 $.post("commands.php", {toggleWifi: true});
 				});
+				$.post('endpoint.php', {networks: true}, function(data){
+					response = jQuery.parseJSON(data);
+					for(var i = 0; i < response['networks'].length; i++){
+						current = response['networks'][i]
+						networkRow = $(`<tr><td>${current[0]}</td><td>${current[1]}</td><td><a class='new-network'>${current[2]}</a></td></tr>`);
+						$("#available-networks").append($(networkRow));
+					}
+				})
 			})
 		</script>
 	</head>
@@ -72,27 +77,6 @@
 											<th>Status</th>
 											<th>Action</th>
 										</tr>
-										<?php
-											$command = "sudo /var/www/libraries/iw-4.9/iw wlan0 scan ap-force | grep SSID";
-											$network_from_command = shell_exec($command);
-											$available_networks = explode('SSID: ', $network_from_command);
-											unset($available_networks[0]);
-											$currentNetwork = shell_exec("/sbin/iwgetid"); 
-											$i = 0;
-											foreach($available_networks as $network){
-												$ssid = substr($network, 0, -1);
-												$ssid = rtrim($ssid);
-												$isKnown = shell_exec("cat /etc/wpa_supplicant/wpa_supplicant.conf | grep '$ssid'");
-												$status = ($isKnown == "" ? "New network" : "Not connected");
-												$status = (strpos($currentNetwork, $ssid) !== false ? "Connected" : $status);
-												$action = "";
-												if($status != "Connected"){
-													$action = ($status == "New network" ? "Add Network" : "Connect");
-												}
-												echo("<tr><td>{$ssid}</td><td>{$status}</td><td><a class='new-network'>{$action}</a></td></tr>");
-											}
-
-										?>
 								</table>
 							</div>
 						</div>

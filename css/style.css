@@ -14,12 +14,16 @@
 	padding-bottom:1%;
 }
 
-.actions{
+.content-container > div{
 	display:flex;
 	justify-content:space-between;
 	flex-direction:column;
+}
+
+.actions{
 	min-height:50%;
 }
+
 .actions>.row>.col-sm-4{
 	text-align:center;
 }
@@ -236,4 +240,19 @@
 	margin: 0 0 0px;
 	font-size:17px;
   display: inline;
+}
+
+#sound_activated_status{
+
+	border-radius:3px;
+	box-shadow: 0 0 0 1.25px rgba(200, 215, 225, 0.5), 0 1px 2px #e9eff3;;
+	text-align:center;
+	margin-top:3%;
+	padding:0.5% 2% 1% 2%;
+	display:none;
+
+}
+
+#sound_activated_status > h4{
+	margin-bottom:6%;
 }

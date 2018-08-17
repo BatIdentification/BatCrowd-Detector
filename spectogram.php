@@ -4,9 +4,9 @@
 		if(isset($_GET['f'])){
 			if($_GET['f'] == "Live"){
 				shell_exec("commands/liveSpectrogram.sh > log.txt 2>&1 &");
-			}elseif(file_exists($_GET['f'])){
+			}elseif(file_exists('audiofiles/' . $_GET['f'])){
 				if(!file_exists("spectrogram-images/{$_GET['f']}.png")){
-					shell_exec("sox /var/www/{$_GET["f"]} -n remix 1 rate 192k spectrogram -o /var/www/spectrogram-images/{$_GET['f']}.png >> log.txt & wait; cp 'spectrogram-images/{$_GET['f']}.png' spec.png");
+					shell_exec("sox /var/www/audiofiles/{$_GET["f"]} -n remix 1 rate 192k spectrogram -o /var/www/spectrogram-images/{$_GET['f']}.png >> log.txt & wait; cp 'spectrogram-images/{$_GET['f']}.png' spec.png");
 				}else{
 					shell_exec("cp -p 'spectrogram-images/{$_GET['f']}.png' spec.png");
 				}
@@ -17,10 +17,10 @@
 		<title>Spectrogram</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="format-detection" content="telephone=no" />
-		<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
 		<?php
 			$fileName = isset($_GET['f']) ? $_GET['f'] : "";
@@ -64,9 +64,9 @@
 						<h4>Audio files</h3>
 						<li><a class="audiofile">Live</a></li>
 						<?php
-							$files = scandir(getcwd(), SCANDIR_SORT_DESCENDING);
+							$files = scandir(getcwd() . '/audiofiles', SCANDIR_SORT_DESCENDING);
 							foreach($files as $key => $value){
-								if(strpos($value, ".wav") !== false){
+								if(strpos($value, ".wav") !== false && $value != "liveSpec.wav"){
 									echo("<li><a class='audiofile'>{$value}</a></li>");
 								}
 							}

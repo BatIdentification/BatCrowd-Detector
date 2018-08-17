@@ -100,7 +100,7 @@
 								<button class="option sound_activated_button" value="true">Start Sound activated recording</button>
 							</div>
 							<div class="col-sm-4">
-								<a href="timeExpansion.php"><button class="option">Time Expansion</button></a>
+								<a href="playback.php"><button class="option">Playback</button></a>
 							</div>
 						</div>
 						<div class="row">

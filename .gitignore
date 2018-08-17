@@ -6,3 +6,5 @@ css/\.DS_Store
 audiofiles/\.DS_Store
 
 \.DS_Store
+
+log\.txt

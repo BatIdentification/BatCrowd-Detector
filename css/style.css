@@ -105,8 +105,8 @@
 }
 
 .unavailable{
-	cursor:not-allowed;
 	opacity:0.5;
+	pointer-events: none;
 }
 .unavailable:hover{
 	color: #777 !important;

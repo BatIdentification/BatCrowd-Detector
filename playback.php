@@ -1,9 +1,17 @@
 <?php
 	if(isset($_GET['f'])){
 		if($_GET['status'] == "Internal Speakers"){
-			shell_exec("sox audiofiles/{$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
+			if($_GET['playback'] == "time-expansion"){
+				shell_exec("sox audiofiles/{$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
+			}else{
+				shell_exec("commands/heterodyne.sh {$_GET['f']} internal > /dev/null");
+			}
 		}else{
-			shell_exec("commands/timeExpansion.sh audiofiles/{$_GET['f']} > /dev/null");
+			if($_GET['playback'] == "time-expansion"){
+				shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null");
+			}else{
+				shell_exec("commands/heterodyne.sh {$_GET['f']} external > /dev/null");
+			}
 		}
 	}elseif(isset($_GET['stop'])){
 		shell_exec("pkill -6 sox; pkill -6 aplay");

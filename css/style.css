@@ -231,15 +231,43 @@
 
 .header-div{
 	border-bottom: 1px solid #e9eff3;
-	padding: 15px;
+	padding: 3% 3% 0 3%;
 	position: relative;
 	text-align:center;
+	display: flex;
+	flex-direction: column;
 }
 
 .header-div p{
 	margin: 0 0 0px;
 	font-size:17px;
   display: inline;
+}
+
+.header-div > .header-options{
+	display:flex;
+	width:100%;
+	justify-content: space-around;
+}
+
+.header-div > .header-options > li > .header-option{
+	text-decoration:none;
+	cursor:pointer;
+	color:black;
+}
+
+.header-div > .header-options > li > .header-option{
+	text-decoration:none;
+	cursor:pointer;
+	color:black;
+}
+
+.header-div > .header-options > li > .header-option:hover{
+	background-color: #d9d9d9;
+}
+
+.header-div > .header-options > li > .header-option-active{
+	background-color: #eee;
 }
 
 #sound_activated_status{

@@ -59,10 +59,14 @@
 					<div class="content actions">
 						<div class="header-div">
 							<p>Playback</p>
-							<div>
-								<a>Time Expansion</a>
-								<a>Hetrodyne</a>
-							</div>
+							<ul class="header-options nav navbar-nav">
+								<li>
+									<a class="header-option header-option-active" value="time-expansion">Time Expansion</a>
+								</li>
+								<li>
+									<a class="header-option" value="heterodyne">Heterodyne</a>
+								</li>
+							</ul>
 						</div>
 						<div class="row output-options">
 							<div class="col-sm-6">

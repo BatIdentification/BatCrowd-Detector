@@ -19,8 +19,8 @@
 		<script>
 			$(document).ready(function(){
 				$(".new-network, .popup .btn-danger").click(function(){
-					$(".popup").toggle();
 					$("#ssid").val($(this).parents("tr").children().eq(0).text());
+					$(".popup").toggle();
 				})
 				$(".setting-option:not(.seleted)").click(function(){
 					 $.post("commands.php", {toggleWifi: true});
@@ -52,6 +52,7 @@
 					<ul class="nav navbar-nav">
 						<li><a id="settings">Shutdown</a></li>
 						<li><a id="settings" href="settings.php">Settings</a></li>
+						<li><a href="batidentification.php">BatIdentification</a></li>
 					</ul>
 				</div>
 			</div>

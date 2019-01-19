@@ -1,0 +1,32 @@
+<div class="bat-call container-fluid">
+  <div class="row">
+    <div class="col-md-10">
+      <h4>Unknown</h4>
+      <span>{{ call.recorded }}</span>
+      <?php if($variables["call.lat"] == NULL || $variables["call.lng"] == NULL): ?>
+      <a class="option-link" id='{{ call.id }}'>Pick Location</a>
+      <?php else :?>
+      <i class='lat'>{{ call.lat }}</i>, <i class='lng'>{{ call.lng }}</i>
+      <?php endif; ?>
+      <br>
+      <b>
+      <?php if($variables['call.status'] == 1): ?>
+        Uploaded
+      <?php else: ?>
+        Not uploaded
+      <?php endif; ?>
+      </b>
+    </div>
+    <div class="col-md-2">
+      <button {{ general.attr }} class="btn btn-primary upload-call" id='{{ call.id }}'>Upload</button>
+    </div>
+  </div>
+  <?php if( $variables["call.status"] == "Not uploaded"): ?>
+  <form id="bat-call-{{ call.id }}">
+    <input type="hidden" name="lat" value="{{ call.lat }}">
+    <input type="hidden" name="lng" value="{{ call.lng }}">
+    <input type="hidden" name="date_recorded" value="{{ call.recorded }}">
+    <input type="hidden" name="url" value=" {{call.url}} ">
+  </form>
+  <?php endif; ?>
+</div>

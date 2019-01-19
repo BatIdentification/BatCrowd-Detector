@@ -125,51 +125,28 @@
             <div class="batid-settings">
 
                 <div class="my-calls">
+
                   <?php
 
 										require_once("includes/dbconnect.php");
+										require_once("includes/templating.php");
 
 										$result = $db->query("SELECT rowid, date_recorded, lat, lng, url, uploaded from bat_calls");
+
+										$templater = new Templater("templates/batcall.phtml");
 
 										foreach($result as $row){
 
 											$attr = ($row['date_recorded'] != "" && $row['lat'] != "" && $row['lng'] != "") ? '' : 'disabled';
 
-											if($row['lat'] == NULL || $row['lng'] == NULL){
-												$locationTag = '<a class="option-link" id=' . $row['rowid'] . '>Pick Location</a>';
-											}else{
-												$locationTag = "<i class='lat'>{$row['lat']}</i>, <i class='lng'>{$row['lng']}</i>";
-											}
+											$variables = array("call.recorded" => $row['date_recorded'], "call.id" => $row['rowid'], "call.lat" => $row['lat'], "call.lng" => $row['lng'], "call.url" => $row['url'], "call.status" => $row['uploaded'], "general.attr" => $attr);
 
-											echo '
-												<div class="bat-call container-fluid">
-													<div class="row">
-														<div class="col-md-10">
-															<h4>Unknown</h4>
-															<span>' . $row['date_recorded'] . ' </span>
-															' . $locationTag .'
-															<br>
-															<b>Not uploaded</b>
-														</div>
-														<div class="col-md-2">
-															<button ' . $attr . ' class="btn btn-primary upload-call" id=' . $row['rowid'] . '>Upload</button>
-														</div>
-													</div>
-													<form id="bat-call-' . $row['rowid'] . '">
-														<input type="hidden" name="lat" value="' . $row['lat'] . '">
-														<input type="hidden" name="lng" value="' . $row['lng'] . '">
-														<input type="hidden" name="date_recorded" value="' . $row['date_recorded'] . '">
-														<input type="hidden" name="url" value="' . $row['url'] . '">
-													</form>
-												</div>
-
-											';
+											$templater->render($variables);
 
 										}
 
-										$db = NULL;
-
                   ?>
+
                 </div>
 
             </div>

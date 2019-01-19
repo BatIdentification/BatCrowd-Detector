@@ -11,51 +11,60 @@
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
-    <script src="js/jso.js" type="text/javascript"></script>
     <script>
+
+			function handleApiResponse(data, callback){
+
+				try{
+					response = JSON.parse(data);
+				}catch(err){
+					$("#warning-label").show();
+					setInterval($("#warning-label").hide(), 3000);
+				}
+
+				if(response['success'] == true){
+
+					callback()
+
+				}else{
+
+					$("#warning-label").show();
+					setInterval($("#warning-label").hide(), 3000);
+
+				}
+
+			}
 
       $(document).ready(function(){
 
-          let client = new jso.JSO({
-              providerID: "batidentification",
-              client_id: "7DOKVNGQC2N8D1I7JRY0MT6VPL0YO4ZZ",
-              redirect_uri: "http://batpi.loc/batidentification.php",
-              authorization: "https://api.batidentification.loc/api/authorize",
-              response_type: "token",
-              debug:true,
-          })
+					$.get("endpoints/env.php", function(data){
 
-          client.callback()
+						response = JSON.parse(data);
 
-          accessToken = client.checkToken()
+						if(response['token'] == true){
+							$(".batid-connect").hide();
+							$(".batid-settings").show();
+						}
 
-          if (accessToken !== null) {
+					})
 
-              $(".batid-connect").hide();
-              $(".batid-settings").show();
+					$("#edit-call").submit(function(e){
 
-              let f = new jso.Fetcher(client)
-              f.fetch('https://api.batidentification.loc/api/user', {})
-                .then((data) => {
-                  return data.json()
-                })
-                .then((data) => {
-                  //Protected json data
-                  $("#username").text("Hi " + data['username'] + "!");
-                })
-                .catch((err) => {
-                  console.error("Error from fetcher", err)
-                })
+						e.preventDefault();
 
-          }
+						$.post('endpoints/calls.php', $("#edit-call").serialize(), function(data){
 
-          $("#connect-to-batid").click(function(){
+							handleApiResponse(data, function(){
 
-            client.getToken().then((token) => {
-							accessToken = token
-            })
+									console.log("Success");
 
-          })
+							});
+
+							$(".popup").toggle();
+
+						})
+
+					});
 
 					$(".option-link, .btn-danger").click(function(){
 							$(".popup").toggle();
@@ -72,7 +81,17 @@
 								result[this.name] = this.value
 						});
 
-						$("endpoint/uploadCall")
+						result['call_id'] = callid;
+
+						$.post("endpoints/upload.php", result, function(data){
+
+							handleApiResponse(data, function(){
+
+								console.log("Success")
+
+							})
+
+						})
 
 					})
 
@@ -85,6 +104,7 @@
 			include("includes/navigation.php")
 		?>
 		<div class="container-fluid">
+			<h5 id="warning-label">Sorry, something went wrong</h5>
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="content">
@@ -97,21 +117,19 @@
               <p class="discription">Using this data we can accurate record bat populations and trends concerning them. This information is crucial to properly conserve our bat species</p>
               <p class="discription">With help from <i>citizen-scientists</i> such as yourself we can accomplish this mission</p>
 
-              <button class="btn btn-success" id="connect-to-batid">Connect with BatIdentification</button>
+              <a href="endpoints/auth.php"><button class="btn btn-success" id="connect-to-batid">Connect with BatIdentification</button></a>
 
               <p class="disclaimer"> By connecting the BatPi will start uploading your bat calls to BatIdentification along with their metadata(time recorded and location)<p>
               <p class="disclaimer"> Please note these settings can be changed for manual uploading </p>
             </div>
             <div class="batid-settings">
 
-                <h3 id="username"></h3>
-
                 <div class="my-calls">
                   <?php
 
 										require_once("includes/dbconnect.php");
 
-										$result = $db->query("SELECT rowid, date_recorded, lat, lng, url from bat_calls");
+										$result = $db->query("SELECT rowid, date_recorded, lat, lng, url, uploaded from bat_calls");
 
 										foreach($result as $row){
 
@@ -166,7 +184,7 @@
 				</div>
 				<div class="popup-content" id="latlng">
 
-						<form method="POST" action="endpoints/calls.php">
+						<form id="edit-call">
 
 							<input name="call_id" id="call_id" type="hidden">
 

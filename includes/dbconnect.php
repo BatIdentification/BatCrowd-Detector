@@ -1,6 +1,6 @@
 <?php
 
-  $dir = __DIR__ . '/../database/batpi.db';
+  $dir = str_replace("/includes", "", __DIR__) . '/database/batpi.db';
 
   try{
       $db = new PDO("sqlite:" . $dir);

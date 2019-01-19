@@ -319,3 +319,9 @@
 #latlng .input-group > input{
 	margin:0 auto;
 }
+
+#warning-label{
+	color:red;
+	display:none;
+	text-align:center;
+}

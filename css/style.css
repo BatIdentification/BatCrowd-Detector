@@ -37,6 +37,13 @@
 	border:0.5px black solid;
 	border-radius:3px;
 }
+#detector_status_stop{
+	background-color:white;
+	width:30%;
+	height:5%;
+	border:0.5px black solid;
+	border-radius:3px;
+}
 @media (min-width: 768px){
 	.side-nav{
 		position:fixed;
@@ -242,7 +249,7 @@
   display: inline;
 }
 
-#sound_activated_status{
+#detector_status{
 
 	border-radius:3px;
 	box-shadow: 0 0 0 1.25px rgba(200, 215, 225, 0.5), 0 1px 2px #e9eff3;;
@@ -253,7 +260,7 @@
 
 }
 
-#sound_activated_status > h4{
+#detector_status > h4{
 	margin-bottom:6%;
 }
 
@@ -324,4 +331,8 @@
 	color:red;
 	display:none;
 	text-align:center;
+}
+
+#sa_count{
+	display:none;
 }

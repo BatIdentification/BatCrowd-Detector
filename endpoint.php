@@ -35,4 +35,12 @@
 
   }
 
+  if(isset($_GET['status'])){
+
+    // Code has to be made omn the Raspberry Pi
+
+    echo('{"status": 3}');
+
+  }
+
 ?>

@@ -12,47 +12,7 @@
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
-		<script>
-
-			var num_of_calls = 0;
-			var count_interval;
-
-			function updateCallsRecorded(){
-
-				$.post("endpoint.php", {num_calls: true}, function(data){
-
-					var response = jQuery.parseJSON(data);
-
-					num_of_calls = num_of_calls == 0 ? response['num_calls'] : num_of_calls;
-
-					$("#sa_recorded").text(response['num_calls'] - num_of_calls);
-
-					console.log(response['num_calls']);
-
-				});
-
-			}
-
-			$(document).ready(function(){
-				tellBatPiTime();
-				addPageButtons();
-				$(".sound_activated_button").click(function(){
-					$.post("commands.php", {sound_activated: $(this).val()});
-					if($(this).val() == "true"){
-						$("#sound_activated_status").show();
-						count_interval = setInterval(updateCallsRecorded, 4000);
-					}else{
-						num_of_calls = 0;
-						$("#sound_activated_status").hide();
-						clearInterval(count_interval);
-						$("#sa_recorded").text("0");
-					}
-				})
-				$(".recording_button").click(function(){
-					$.post("commands.php", {recording: $(this).val()});
-				})
-			})
-		</script>
+		<script src="js/index.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-default">
@@ -116,9 +76,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 col-sm-offset-4" id="sound_activated_status">
-						 <h4>Sound Activated Recording Status</h4>
-						 <b>Calls recorded: </b><span id="sa_recorded">0</span>
+					<div class="col-md-4 col-sm-offset-4" id="detector_status">
+						 <h4 id="detector_status_type">Sound Activated Recording Status</h4>
+						 <div id="sa_count">
+						 		<b>Calls recorded: </b><span id="sa_recorded">0</span>
+					 	 </div>
+						 <button id="detector_status_stop">Stop</button>
 					</div>
 				</div>
 			</div>

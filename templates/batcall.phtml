@@ -17,11 +17,13 @@
       <?php endif; ?>
       </b>
     </div>
+    <?php if( $variables["call.status"] == 0): ?>
     <div class="col-md-2">
       <button {{ general.attr }} class="btn btn-primary upload-call" id='{{ call.id }}'>Upload</button>
     </div>
+    <?php endif; ?>
   </div>
-  <?php if( $variables["call.status"] == "Not uploaded"): ?>
+  <?php if( $variables["call.status"] == 0): ?>
   <form id="bat-call-{{ call.id }}">
     <input type="hidden" name="lat" value="{{ call.lat }}">
     <input type="hidden" name="lng" value="{{ call.lng }}">

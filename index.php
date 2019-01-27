@@ -81,6 +81,7 @@
 					<ul class="nav navbar-nav">
 						<li><a id="settings">Shutdown</a></li>
 						<li><a id="settings" href="settings.php">Settings</a></li>
+						<li><a href="batidentification.php">BatIdentification</a></li>
 					</ul>
 				</div>
 			</div>

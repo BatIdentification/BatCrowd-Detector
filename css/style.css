@@ -256,3 +256,72 @@
 #sound_activated_status > h4{
 	margin-bottom:6%;
 }
+
+#batidentification-logo{
+	width:20%;
+}
+
+.batid-connect > p{
+	font-family: Verdana;
+}
+
+.batid-connect > button{
+
+	margin-bottom:2%;
+
+}
+
+.disclaimer{
+
+	font-size:9px;
+
+}
+
+.batid-settings{
+	display:none;
+}
+
+.bat-call:nth-child(odd){
+	background-color:#f2f2f2;
+}
+
+.bat-call{
+	text-align:left;
+}
+
+.bat-call > .row{
+	display:flex;
+}
+
+.bat-call > .row > .col-md-2{
+	display:flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.option-link{
+	cursor:pointer;
+	text-decoration:underline;
+	color:black;
+}
+
+#latlng label{
+	font-size:16px;
+}
+
+#latlng .input-group{
+	width:100%;
+	display:flex;
+	align-items: center;
+	margin-bottom:2%;
+}
+
+#latlng .input-group > input{
+	margin:0 auto;
+}
+
+#warning-label{
+	color:red;
+	display:none;
+	text-align:center;
+}

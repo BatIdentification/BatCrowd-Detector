@@ -1,6 +1,6 @@
   var num_of_calls = 0;
   var count_interval;
-  var responses = {1: "Sound-activated recording", 2: "Time-expansion", 3: "Hetrodyning"}
+  var responses = {1: "Sound-activated recording", 2: "Recording", 3: "Time-expansion", 4: "Hetrodyning"}
   var currentStatus = 0;
 
   function stopCurrent(){

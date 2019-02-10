@@ -39,7 +39,11 @@
 
     // Code has to be made omn the Raspberry Pi
 
-    echo('{"status": 3}');
+   $status = shell_exec(". commands/status.sh");
+
+//   $status = $status != "" ? $status : 0;
+
+    echo('{"status":' . rtrim($status) . '}');
 
   }
 

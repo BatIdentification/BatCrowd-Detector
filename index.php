@@ -17,6 +17,7 @@
 	<body>
 		<?php
 			$audio = true;
+			$link = true;
 			include("includes/navigation.php");
 		?>
 		<div class="container-fluid">

@@ -1,4 +1,4 @@
-# Bat-Pi
+# BatCrowd's Detector
 A multi-functional and multi-use bat detector. The Bat-Pi aims to reduce the costs incurred to monitor and identify bat species while not significantly comprimsing on quality when compared to commerical bat detectors.
 <br>
 

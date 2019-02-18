@@ -32,14 +32,13 @@
 	//Enables or disables normal recording
 
 	if(isset($_POST['recording'])){
-
-		if($_POST['recording'] == True){
+		if($_POST['recording'] == "true"){
 
 			shell_exec(". /var/www/commands/startRecording.sh");
 
 		}else{
 
-			shell_exec("pkill rec");
+			shell_exec("pkill rec &");
 
 		}
 

@@ -13,11 +13,18 @@
       <?php if(isset($audio)): ?>
       <ul class="nav navbar-nav side-nav">
         <h4>Audio files</h3>
+        <?php if(isset($liveAvailable)): ?>
+          <li><a id="live-audio" class="audiofile">Live</a></li>
+        <?php endif ?>
         <?php
           $files = scandir(getcwd() . '/audiofiles', SCANDIR_SORT_DESCENDING);
           foreach($files as $key => $value){
             if(strpos($value, ".wav") !== false && $value != "liveSpec.wav"){
-              echo("<li><a class='audiofile' href='audiofiles/{$value}' download>{$value}</a></li>");
+
+              $attr = isset($link) ? "href='audiofiles/{$value}'" : "";
+
+              echo("<li><a class='audiofile' {$attr} download>{$value}</a></li>");
+
             }
           }
         ?>

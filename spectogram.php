@@ -50,6 +50,7 @@
 	<body>
 		<?php
 			$audio = true;
+			$liveAvailable = true;
 			include("includes/navigation.php");
 		?>
 		<div class="container-fluid">

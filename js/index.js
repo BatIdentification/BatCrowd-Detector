@@ -5,8 +5,11 @@
 
   function stopCurrent(){
 
+    $("#detector_status").hide();
+
     if(currentStatus == 1){
       $.post("commands.php", {sound_activated: false});
+      clearInterval(count_interval);
     }else if(currentStatus == 2){
       $.post("commands.php", {recording: false});
     }else if(currentStatus == 3){
@@ -75,8 +78,9 @@
         displayStatus("Sound-activated recording");
         $("sa_recorded").show();
         count_interval = setInterval(updateCallsRecorded, 4000);
-      }else{
-        num_of_calls = 0;]
+        currentStatus = 1; 
+    }else{
+        num_of_calls = 0;
         $("#detector_status").hide();
         clearInterval(count_interval);
         $("#sa_recorded").text("0");
@@ -89,6 +93,7 @@
 
       if($(this).val() == "true"){
         displayStatus("Recording");
+	currentStatus = 2;
       }else{
           $("#detector_status").hide();
       }

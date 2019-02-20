@@ -34,7 +34,7 @@
 	if(isset($_POST['recording'])){
 		if($_POST['recording'] == "true"){
 
-			shell_exec(". /var/www/commands/startRecording.sh");
+			shell_exec(". /var/www/commands/startRecording.sh &");
 
 		}else{
 

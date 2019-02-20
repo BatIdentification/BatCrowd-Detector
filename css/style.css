@@ -1,3 +1,9 @@
+body{
+
+	margin: 0 0 2% 0;
+
+}
+
 .navbar-default{
 	border-radius:0px;
 }
@@ -257,6 +263,7 @@
 	margin-top:3%;
 	padding:0.5% 2% 1% 2%;
 	display:none;
+	margin-bottom:7%;
 
 }
 

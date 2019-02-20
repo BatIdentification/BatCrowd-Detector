@@ -33,6 +33,14 @@
 
   }
 
+  function displayStatus(status){
+
+    $("sa_recorded").hide();
+    $("#detector_status").show();
+    $("#detector_status_type").text("Current: " + status);
+
+  }
+
   function getDetectorStatus(){
 
     $.get("endpoint.php", {status: 0}, function(status){
@@ -42,10 +50,10 @@
 
       if(response['status'] != 0){
 
-        $("#detector_status").show();
-        $("#detector_status_type").text("Current: " + responses[response['status']]);
+        displayStatus(responses[response['status']]);
 
         if(response['status'] == 1){
+            $("sa_recorded").show();
             count_interval = setInterval(updateCallsRecorded, 4000);
         }
 
@@ -64,19 +72,27 @@
     $(".sound_activated_button").click(function(){
       $.post("commands.php", {sound_activated: $(this).val()});
       if($(this).val() == "true"){
-        $("#detetector_status").show();
-        $("#detector_status_type").text("Current: Sound-activated recording");
+        displayStatus("Sound-activated recording");
+        $("sa_recorded").show();
         count_interval = setInterval(updateCallsRecorded, 4000);
       }else{
-        num_of_calls = 0;
-        $("#detetector_status").hide();
+        num_of_calls = 0;]
+        $("#detector_status").hide();
         clearInterval(count_interval);
         $("#sa_recorded").text("0");
       }
     })
     //Start and stop normal recording
     $(".recording_button").click(function(){
+
       $.post("commands.php", {recording: $(this).val()});
+
+      if($(this).val() == "true"){
+        displayStatus("Recording");
+      }else{
+          $("#detector_status").hide();
+      }
+
     })
     //Setup the status stop button
     $("#detector_status_stop").click(function(){

@@ -9,15 +9,13 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
 		<?php
-			echo("<script>fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
 			if(isset($_GET['f'])){
+				echo("<script>fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
 				if($_GET['status'] == "Internal Speakers"){
 					shell_exec("sox audiofiles/{$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
 				}else{
 					shell_exec("commands/timeExpansion.sh audiofiles/{$_GET['f']} > /dev/null");
 				}
-			}elseif(isset($_GET['stop'])){
-				shell_exec("pkill -6 sox; pkill -6 aplay");
 			}
 		?>
 		<script>
@@ -109,7 +107,7 @@
 						</div>
 						<div>
 						<a id='speaker-status'>Current: BatPi's Speakers</a>
-						<a href="?stop"><button class="stop-button">Stop</button></a>
+						<button id="stop_action" value="timeExpansion">Stop</button></a>
 						</div>
 						<span>Amplify:<input type="checkbox" id="amplify"></span>
 					</div>

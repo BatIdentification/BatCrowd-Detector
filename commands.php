@@ -34,12 +34,20 @@
 	if(isset($_POST['recording'])){
 
 		if($_POST['recording'] == True){
-
 			shell_exec(". /var/www/commands/startRecording.sh");
-
 		}else{
-
 			shell_exec("pkill rec");
+		}
+
+	}
+
+	//Enables and disables timeExpansion recording_button
+
+	if(isset($_POST['timeExpansion'])){
+
+		if($_POST['timeExpansion'] == "false"){
+
+			shell_exec("pkill -6 sox; pkill -6 aplay");
 
 		}
 

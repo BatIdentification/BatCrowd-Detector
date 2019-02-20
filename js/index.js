@@ -76,14 +76,14 @@
       $.post("commands.php", {sound_activated: $(this).val()});
       if($(this).val() == "true"){
         displayStatus("Sound-activated recording");
+        $("#sa_recorded").text("0");
         $("sa_recorded").show();
         count_interval = setInterval(updateCallsRecorded, 4000);
-        currentStatus = 1; 
-    }else{
+        currentStatus = 1;
+      }else{
         num_of_calls = 0;
         $("#detector_status").hide();
         clearInterval(count_interval);
-        $("#sa_recorded").text("0");
       }
     })
     //Start and stop normal recording
@@ -93,7 +93,7 @@
 
       if($(this).val() == "true"){
         displayStatus("Recording");
-	currentStatus = 2;
+        currentStatus = 2;
       }else{
           $("#detector_status").hide();
       }

@@ -1,7 +1,7 @@
 <?php
-
+	$config = include("config.php");
 	//We set the PI's time to whatever the client sent. By doing this we don't need a RTC
-	if(isset($_POST['time'])){
+	if(isset($_POST['time']) && $config["clientSetsTime"]){
 		shell_exec("sudo /bin/date -s '{$_POST['time']}'");
 	}
 

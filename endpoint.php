@@ -7,12 +7,32 @@
     echo('{"num_calls":' . $count . '}');
 
   }
+  if(isset($_GET['network_status'])){
+	if(shell_exec('systemctl status hostapd | grep "(running)"') != ""){
+		echo '{"status": 0}';
+	}else{
+		echo '{"status": 1}';	
+	}
+  }
 
-  if(isset($_POST['networks'])){
+  if(isset($_POST["new_network_ssid"]) && isset($_POST["new_network_password"])){
+     $newConfig = 'network={ ssid="'.$_POST['new_network_ssid'].'" psk="'.$_POST['new_network_password'].'"}';
+     $file = "/etc/wpa_supplicant/wpa_supplicant.conf";
+     file_put_contents($file, $newConfig, FILE_APPEND);
+     echo '{"status": 1}';
+  }
+
+  if(isset($_GET['networks'])){
 
     $networks = array();
 
-    $command = "sudo /var/www/libraries/iw-4.9/iw wlan0 scan ap-force | grep SSID";
+    if(intval(shell_exec("cat /etc/debian_version")) > 6.9){
+    	$command = "sudo /sbin/iw wlan0 scan ap-force | grep SSID";
+    }else{
+       $dir = getcwd();
+       $command = "sudo {$dir}/libraries/iw-4.9/iw wlan0 scan ap-force | grep SSID";
+    }
+
     $network_from_command = shell_exec($command);
     $available_networks = explode('SSID: ', $network_from_command);
     unset($available_networks[0]);

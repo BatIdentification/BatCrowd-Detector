@@ -79,7 +79,7 @@
 						?>
 					</ul>
 					<ul class="nav navbar-nav">
-						<li><a id="settings">Shutdown</a></li>
+						<li><a id="shutdown">Shutdown</a></li>
 						<li><a id="settings" href="settings.php">Settings</a></li>
 					</ul>
 				</div>

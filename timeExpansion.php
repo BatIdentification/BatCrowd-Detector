@@ -9,80 +9,78 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/default.js" type="text/javascript"></script>
 		<?php
-			echo("<script>fileName='{$_GET['f']}';\n var status = '{$_GET['status']}'</script>");
-			if(isset($_GET['f'])){
-				if($_GET['status'] == "Internal Speakers"){
-					shell_exec("sox audiofiles/{$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
-				}else{
-					shell_exec("commands/timeExpansion.sh audiofiles/{$_GET['f']} > /dev/null");
-				}
-			}elseif(isset($_GET['stop'])){
+			if(isset($_GET['stop'])){
 				shell_exec("pkill -6 sox; pkill -6 aplay");
 			}
 		?>
 		<script>
-			speakerStatus = "BatPi's Speaker";
+			statusLabels = ["Device's speakers", "Detector's Speakers"]
+			speakerStatus = 1;
 			staticElements = 2;
 			$(document).ready(function(){
+
 				addPageButtons();
-				if(fileName != ""){
-					$(".audiofile:contains(" + fileName + ")").eq(0).addClass("selected");
-					$(".stop-button").css("display", "block");
-				}
-				if(status.includes("Internal Speakers")){
-					$("#speaker-status").html("Current: Internal Speakers");
-					speakerStatus = "Internal Speakers";
-					isLiveAvailable()
-					playAudio(fileName);
-				}
-				$(".audiofile").click(function(event){
-					source = $(event.target)[0].innerHTML;
-					if(speakerStatus == 'Internal Speakers' && ($(event.target).attr("class").includes("unavilable") == false)){
-						$.ajax({
-							url: "time-expansion-audio/" + source,
-							type: 'HEAD',
-    							error: function() {
-								window.location="?f=" + source + "&status=" + speakerStatus;
-    							},
-							success: function() {
-								audio = new Audio("time-expansion-audio/" + source);
-        			 				audio.play();
-    							}
-    						});
-					}else{
-						if(source == "Live" & document.getElementById('amplify').checked){
-							source = "Live-Amplify"
-						}
-						window.location = "?f=" + source + "&status=" + speakerStatus.replace("\'", "");
-					}
-				});
+
+				//Switch output devices
 				$(".img-button").click(function(event){
-					$("#speaker-status").html("Current: " + $(event.target).attr('value'));
-					speakerStatus = $(event.target).attr('value');
-					isLiveAvailable();
+						speakerStatus = parseInt($(event.target).attr('value'));
+						$("#speaker-status").html("Current: " + statusLabels[speakerStatus]);
+						isLiveAvailable();
 				});
+
+				//When an audiofile is clicked send the information to the endpoint
+				//Need two things: 1. The file we want to play (or live)
+				//								 2. Where we want to output to
+				$(".audiofile").click(function(){
+
+					isAvailable = !($(event.target).attr("class").includes("unavilable"));
+					source = $(event.target)[0].innerHTML;
+					amplify = document.getElementById('amplify').checked;
+
+					console.log(speakerStatus);
+
+					if(speakerStatus == 0 && isAvailable){
+						//Device output
+						$.get("time-expansion-audio/" + source)
+					    .done(function() {
+									audio = new Audio("time-expansion-audio/" + source);
+									audio.play();
+					    }).fail(function() {
+					        playTimeExpansion(source, amplify);
+					  	})
+
+					}else{
+
+						playTimeExpansion(source, amplify)
+
+					}
+
+				});
+
+
 			});
-			function playAudio(filePath){
-				$.ajax({
-    					url:'time-expansion-audio/' + filePath,
-    					type:'HEAD',
-    					error: function()
-    					{
-        					setInterval(playAudio, 1000, filePath);
-    					},
-    					success: function()
-    					{
-						audio = new Audio("time-expansion-audio/" + filePath);
-						audio.play();
-    					}
-				});
-			}
+
+			//Live only allowed for detecotor's speakers
 			function isLiveAvailable(){
-				if(speakerStatus == "Internal Speakers"){
+				if(speakerStatus == 0){
 					$("#live-audio").addClass("unavailable");
 				}else{
 					$("#live-audio").removeClass("unavailable");
 				}
+			}
+			//Send a request to the endpoint to create the time expansion audio file
+			//Source -> The raw bat call
+			//Amplify -> Wether the volume should be amplified
+
+			function playTimeExpansion(source, amplify){
+
+				$.post("endpoint.php", {time_expansion: source, output: speakerStatus, amplifyAudio: amplify}, function(data){
+					if(source == 0){
+						audio = new Audio("time-expansion-audio/" + source);
+						audio.play();
+					}
+				});
+
 			}
 		</script>
 	</head>
@@ -127,14 +125,14 @@
 						</div>
 						<div class="row output-options">
 							<div class="col-sm-6">
-								<img class="img-button" src="images/external-speakers.png" value="BatPis Speakers">
+								<img class="img-button" src="images/external-speakers.png" value="1">
 							</div>
 							<div class="col-sm-6">
-								<img class="img-button" src="images/internal-speakers.png" value="Internal Speakers">
+								<img class="img-button" src="images/internal-speakers.png" value="0">
 							</div>
 						</div>
 						<div>
-						<a id='speaker-status'>Current: BatPi's Speakers</a>
+						<a id='speaker-status'>Current: Detector's Speakers</a>
 						<a href="?stop"><button class="stop-button">Stop</button></a>
 						</div>
 						<span>Amplify:<input type="checkbox" id="amplify"></span>

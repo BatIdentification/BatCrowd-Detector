@@ -1,5 +1,4 @@
 <?php
-
   if(isset($_POST['num_calls'])){
 
     $fi = new FilesystemIterator(getcwd() . '/audiofiles', FilesystemIterator::SKIP_DOTS);
@@ -43,6 +42,25 @@
     }
 
   }
+
+  if(isset($_POST['time_expansion'])){
+
+    if(isset($_POST['output'])){
+
+      if($_POST['output'] == "0"){
+        shell_exec("sox audiofiles/{$_POST['time_expansion']} -c 2 time-expansion-audio/{$_POST['time_expansion']} speed 0.1");
+        die('{"success": true}');
+      }elseif($_POST['output'] == "1"){
+        shell_exec("commands/timeExpansion.sh {$_POST['time_expansion']} > /dev/null &");
+	die('{"success": true}');
+     }
+
+    }else{
+      echo('{"error": "missing parameter", "error_description": "Please provide where you want the sound to be outputed to"}');
+    }
+
+  }
+
 
   if(isset($_GET['networks'])){
 

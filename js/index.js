@@ -79,13 +79,24 @@
     })
   }
 
+  function positionError(error){
+    console.log(error);
+  }
+
+  function handlePosition(position){
+    $.post("endpoints/location.php", {lat: position.coords.latitude, lng: position.coords.longitude});
+    setTimeout(function(){
+      handlePosition(position)
+    }, 5 * 60 * 1000);
+  }
+
   $(document).ready(function(){
     //Setup the page
     tellBatPiTime();
     addPageButtons();
     getDetectorStatus();
     getGPSStatus();
-    setInterval(getGPSStatus, 20000);
+    getStatus = setInterval(getGPSStatus, 20000);
     //Start and stop soundactivated recording
     $(".sound_activated_button").click(function(){
       $.post("commands.php", {sound_activated: $(this).val()});
@@ -118,4 +129,11 @@
     $("#detector_status_stop").click(function(){
       stopCurrent();
     });
+
+    navigator.geolocation.getCurrentPosition(function(position){
+      $("#gps_status").removeClass("greyed");
+      clearInterval(getStatus);
+      handlePosition(position);
+    }, positionError);
+
   })

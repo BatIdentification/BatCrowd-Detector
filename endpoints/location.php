@@ -31,6 +31,32 @@
 
   }
 
+  #Returns the most accurate lat, lng co-ordinates the detector currently ezmlm_hash
+  if(isset($_GET['gps_pos'])){
+
+    $gpsd = shell_exec("timout 25 gpspipe -w -n 8");
+
+    if(strpos($gpsd, "lat") === false){
+
+      #Have to return lat, lng from database
+      $query = "SELECT lat, lng FROM environment WHERE rowid = 1";
+      $result = $db->query($query);
+
+      foreach ($result as $row){
+        echo '{"lat": ' . $row['lat'] . ', "lng": ' . $row['lng'] . '}';
+      }
+
+
+    }else{
+
+      #Return from GPS
+
+      echo "GPS output";
+
+    }
+
+  }
+
   #Updates a database with lat & lng from client
   if(isset($_POST['lat']) && isset($_POST['lng'])){
     $query = "UPDATE environment SET lat = :lat, lng = :lng WHERE rowid = 1";

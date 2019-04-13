@@ -66,28 +66,40 @@
 
   }
 
-  function getGPSStatus(){
-    $.get("endpoint.php", {gps_status: 0}, function(status){
+  function setupLocation(){
+
+    $.get("endpoints/location.php", {gps_status: 0}, function(status){
 
       var response = jQuery.parseJSON(status);
-      if(response["gps_status"] == 0){
-        $("#gps_status").addClass("greyed");
-      }else{
+      if(response['gps_status'] == 0){
+        clientLocation();
+        setTimeout(setupLocation, 10000);
+      }else if(response['gps_status'] == 1){
         $("#gps_status").removeClass("greyed");
+      }else if(response['gps_status'] == 2){
+        clientLocation(false);
+        setTimeout(setupLocation, 10000);
       }
 
     })
+
   }
 
-  function positionError(error){
-    console.log(error);
-  }
-
-  function handlePosition(position){
-    $.post("endpoints/location.php", {lat: position.coords.latitude, lng: position.coords.longitude});
-    setTimeout(function(){
-      handlePosition(position)
-    }, 5 * 60 * 1000);
+  function clientLocation(repeat = true){
+    navigator.geolocation.getCurrentPosition(
+      function(position){
+        $("#gps_status").removeClass("greyed");
+        $.post("endpoints/location.php", {lat: position.coords.latitude, lng: position.coords.longitude});
+        if(repeat){
+          setTimeout(clientLocation, 5 * 60 * 1000);
+        }
+      },
+      function(error){
+        $("#gps_status").addClass("greyed");
+        setTimeout(clientLocation, 1 * 60 * 1000);
+        console.log(error)
+      }
+    );
   }
 
   $(document).ready(function(){
@@ -95,8 +107,7 @@
     tellBatPiTime();
     addPageButtons();
     getDetectorStatus();
-    getGPSStatus();
-    getStatus = setInterval(getGPSStatus, 20000);
+    setupLocation();
     //Start and stop soundactivated recording
     $(".sound_activated_button").click(function(){
       $.post("commands.php", {sound_activated: $(this).val()});
@@ -129,11 +140,5 @@
     $("#detector_status_stop").click(function(){
       stopCurrent();
     });
-
-    navigator.geolocation.getCurrentPosition(function(position){
-      $("#gps_status").removeClass("greyed");
-      clearInterval(getStatus);
-      handlePosition(position);
-    }, positionError);
 
   })

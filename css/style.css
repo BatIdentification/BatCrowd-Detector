@@ -250,7 +250,7 @@ body{
 }
 
 .header-div p{
-	margin: 0 0 0px;
+	margin: 0 auto 0 -22;
 	font-size:17px;
   display: inline;
 }
@@ -342,4 +342,15 @@ body{
 
 #sa_count{
 	display:none;
+}
+
+#gps_status{
+	width:22px;
+	height:30px;
+	float:left;
+}
+
+.greyed{
+	opacity: 0.4;
+  filter: alpha(opacity=40);
 }

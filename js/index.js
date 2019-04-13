@@ -66,11 +66,26 @@
 
   }
 
+  function getGPSStatus(){
+    $.get("endpoint.php", {gps_status: 0}, function(status){
+
+      var response = jQuery.parseJSON(status);
+      if(response["gps_status"] == 0){
+        $("#gps_status").addClass("greyed");
+      }else{
+        $("#gps_status").removeClass("greyed");
+      }
+
+    })
+  }
+
   $(document).ready(function(){
     //Setup the page
     tellBatPiTime();
     addPageButtons();
     getDetectorStatus();
+    getGPSStatus();
+    setInterval(getGPSStatus, 20000);
     //Start and stop soundactivated recording
     $(".sound_activated_button").click(function(){
       $.post("commands.php", {sound_activated: $(this).val()});

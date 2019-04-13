@@ -47,4 +47,16 @@
 
   }
 
+  if(isset($_GET['gps_status'])){
+
+    $gpsd = shell_exec("gpspipe -w -n 4");
+
+    if(strpos($gpsd, "lat") === false){
+      echo('{"gps_status": 0}');
+    }else{
+      echo('{"gps_status": 1}');
+    }
+
+  }
+
 ?>

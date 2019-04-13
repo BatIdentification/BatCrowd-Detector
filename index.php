@@ -25,6 +25,7 @@
 				<div class="col-sm-10 content-container">
 					<div class="content actions">
 						<div class="header-div">
+							<img src="images/location.png" id="gps_status" class="greyed">
 							<p>Actions</p>
 						</div>
 						<div class="row">

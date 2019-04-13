@@ -340,6 +340,12 @@ body{
 	text-align:center;
 }
 
+#success-label{
+	color:green;
+	display:none;
+	text-align:center;
+}
+
 #sa_count{
 	display:none;
 }

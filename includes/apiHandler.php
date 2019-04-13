@@ -4,7 +4,7 @@
 
   class batidAPI{
 
-    private $apiUrl = "https://api.batidentification.loc/api/";
+    private $apiUrl = "https://api.batidentification.com/api/";
 
     function __construct($db){
 
@@ -33,9 +33,9 @@
           'clientSecret' => '73PKBLqyPRsGVMaWivow96bfsbUYcN1iaUbXGQuzf5rnkRi6a6YQrA76cxW2HlOchRju99IfWHxC8D1A',
           'redirectUri' => 'http://batpi.loc/endpoints/auth.php',
           'response_type' => 'code',
-          'urlAuthorize' => 'https://api.batidentification.loc/api/authorize',
-          'urlAccessToken' => 'https://api.batidentification.loc/api/token',
-          'urlResourceOwnerDetails' => 'https://api.batidentification.loc/api/user',
+          'urlAuthorize' => $this->apiUrl . 'authorize',
+          'urlAccessToken' => $this->apiUrl . 'token',
+          'urlResourceOwnerDetails' => $this->apiUrl . 'user',
         ]);
 
       }

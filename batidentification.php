@@ -19,7 +19,9 @@
 					response = JSON.parse(data);
 				}catch(err){
 					$("#warning-label").show();
-					setInterval($("#warning-label").hide(), 3000);
+					setTimeout(function(){
+						$("#warning-label").hide()
+					}, 3000);
 				}
 
 				if(response['success'] == true){
@@ -29,7 +31,9 @@
 				}else{
 
 					$("#warning-label").show();
-					setInterval($("#warning-label").hide(), 3000);
+					setTimeout(function(){
+						$("#warning-label").hide()
+					}, 3000);
 
 				}
 
@@ -87,9 +91,15 @@
 
 							handleApiResponse(data, function(){
 
-								console.log("Success")
+								$("#success-label").show();
+								setTimeout(function(){
+									$("#success-label").hide()
+								}, 3000);
+								setTimeout(function(){
+									location.reload()
+								}, 5000);
 
-							})
+							});
 
 						})
 
@@ -105,6 +115,7 @@
 		?>
 		<div class="container-fluid">
 			<h5 id="warning-label">Sorry, something went wrong</h5>
+			<h5 id="success-label">Your call was successfully uploaded</h5>
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="content">

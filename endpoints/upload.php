@@ -34,17 +34,21 @@
 
     $data = array('bat_call' => $file_to_upload, 'date_recorded' => $call['date_recorded'], 'lat' => $call['lat'], 'lng' => $call['lng']);
 
-    // $response = $handler->sendAuthRequest('upload', $data, ['Content-type: multipart/form-data']);
+    $response = $handler->sendAuthRequest('upload', $data, ['Content-type: multipart/form-data']);
 
-    // echo($response);
+    $output = json_decode($response);
 
-    echo('{"success": true}');
+    if(isset($output->success)){
+      $stmt = $db->prepare("UPDATE bat_calls SET uploaded = 1 WHERE rowid = :callid");
 
-    $stmt = $db->prepare("UPDATE bat_calls SET uploaded = 1 WHERE rowid = :callid");
+      $stmt->execute([":callid" => $_POST['call_id']]);
 
-    $stmt->execute([":callid" => $_POST['call_id']]);
+      $stmt = NULL;
 
-    $stmt = NULL;
+      echo('{"success": true}');
+    }else{
+      echo ($output);
+    }
 
   }else{
 

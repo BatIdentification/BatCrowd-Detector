@@ -107,7 +107,7 @@ body{
 }
 
 #speaker-status{
-	margin-top:5%;
+	margin-top:1%;
 	display:block;
 	text-decoration:none;
 	color:black;
@@ -384,5 +384,14 @@ body{
 }
 
 #sa_count{
+	display:none;
+}
+
+#frequency{
+	width:30%;
+	margin: 0 auto;
+}
+
+.frequency-control{
 	display:none;
 }

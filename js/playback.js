@@ -4,6 +4,7 @@ var getVariables = getUrlVars();
 var speakerStatus = getVariables['status'] == undefined ? "BatPi'sSpeaker" : getVariables['status']
 var fileName = getVariables['fileName'];
 var playback = "time-expansion";
+var audio;
 
 //********* Define our functions *********** \\
 
@@ -41,22 +42,6 @@ $(document).ready(function(){
 
   addPageButtons();
 
-  if(fileName != ""){
-    //We need to add the selected attribute to the audio-file name on the right-bar
-    $(".audiofile:contains(" + fileName + ")").eq(0).addClass("selected");
-    $(".stop-button").css("display", "block");
-    //We need to retain if it is internal or external speakers
-    if(speakerStatus == "Internal Speakers"){
-      $("#speaker-status").html("Current: Internal Speakers");
-      setLiveAvailability(speakerStatus)
-      //External playback is handled by bash but internal javascript will play
-      playAudio(fileName, playback, function(){
-        //If the audiofile has not been converted yet we need to keep testing until it has been
-        setInterval(playAudio, 1000, audiofile, playback, function(){});
-      });
-    }
-  }
-
   //
   // Inform the user of the status, change the status for the other functions, and finally check if we should allow live playback.
   //
@@ -75,11 +60,22 @@ $(document).ready(function(){
       playAudio(source, playback, function(){
         var postData = {output: "Internal", source: source}
         postData[playback] = true;
-        $.post("commands.php", postData);
+        if(playback == "heterodyne"){
+          postData['frequency'] = $("#frequency").val();
+        }
+        $.post("commands.php", postData, function(data){
+          response = JSON.parse(data);
+          if(response['success'] == true){
+            playAudio(source, playback, function(){});
+          }
+        });
       });
     }else{
       var postData = {output: "External", source: source}
       postData[playback] = true;
+      if(playback == "heterodyne"){
+        postData['frequency'] = $("#frequency").val();
+      }
       $.post("commands.php", postData);
     }
   });
@@ -92,7 +88,19 @@ $(document).ready(function(){
     playback = $(this).attr("value");
     $(".header-option").removeClass("header-option-active");
     $(this).addClass("header-option-active");
+    $("#stop_action").attr('value', playback);
 
+    if(playback == "heterodyne"){
+      $(".frequency-control").show();
+    }else{
+      $(".frequency-control").hide();
+    }
+
+  });
+
+  $("#stop_action").click(function(){
+    audio.pause();
+    aduio.currentTime = 0;
   });
 
 })

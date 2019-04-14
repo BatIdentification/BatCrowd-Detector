@@ -83,8 +83,10 @@
 							</div>
 						</div>
 						<div>
+						<label for="frequency" class="frequency-control">Frequency: </label>
+						<input class="form-control frequency-control" id="frequency" name="frequency" value="32000" type="number" min="20000">
 						<a id='speaker-status'>Current: Detector's Speakers</a>
-						<button id="stop_action" value="playback">Stop</button>
+						<button id="stop_action" value="time-expansion">Stop</button>
 						</div>
 						<span>Amplify:<input type="checkbox" id="amplify"></span>
 					</div>

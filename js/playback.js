@@ -73,11 +73,14 @@ $(document).ready(function(){
     source = $(event.target)[0].innerHTML;
     if(speakerStatus == 'Internal Speakers'){
       playAudio(source, playback, function(){
-         window.location="?f=" + source + "&status=Internal Speakers&playback=" + playback;
+        var postData = {output: "Internal", source: source}
+        postData[playback] = true;
+        $.post("commands.php", postData);
       });
     }else{
-      source = (source == "Live" & document.getElementById('amplify').checked) ? "Live-Amplify" : source;
-      window.location = "?f=" + source + "&status=BatPisSpeaker&playback=" + playback;
+      var postData = {output: "External", source: source}
+      postData[playback] = true;
+      $.post("commands.php", postData);
     }
   });
 

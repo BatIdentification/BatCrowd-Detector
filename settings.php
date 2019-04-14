@@ -19,8 +19,8 @@
 		<script>
 			$(document).ready(function(){
 				$(".new-network, .popup .btn-danger").click(function(){
-					$(".popup").toggle();
 					$("#ssid").val($(this).parents("tr").children().eq(0).text());
+					$(".popup").toggle();
 				})
 				$(".setting-option:not(.seleted)").click(function(){
 					 $.post("commands.php", {toggleWifi: true});
@@ -37,25 +37,9 @@
 		</script>
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapseable">
-					 	<span class="sr-only">Toggle navigation</span>
-					 	<span class="icon-bar"></span>
-					 	<span class="icon-bar"></span>
-					 	<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.php">BatPi</a>
-				</div>
-				<div class="collapse navbar-collapse" id="collapseable">
-					<ul class="nav navbar-nav">
-						<li><a id="settings">Shutdown</a></li>
-						<li><a id="settings" href="settings.php">Settings</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<?php
+			include("includes/navigation.php");
+		?>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12">

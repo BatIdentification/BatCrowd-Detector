@@ -95,4 +95,9 @@ $(document).ready(function(){
 	$("#shutdown").click(function(){
 		$.post("commands.php", {shutdown: true});
 	});
+	$("#stop_action").click(function(event){
+		data = {}
+		data[$(event.target).val()] = false;
+		$.post("commands.php", data);
+	})
 });

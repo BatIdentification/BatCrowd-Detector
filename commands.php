@@ -1,7 +1,7 @@
 <?php
-
+	$config = include("config.php");
 	//We set the PI's time to whatever the client sent. By doing this we don't need a RTC
-	if(isset($_POST['time'])){
+	if(isset($_POST['time']) && $config["clientSetsTime"]){
 		shell_exec("sudo /bin/date -s '{$_POST['time']}'");
 	}
 
@@ -32,14 +32,22 @@
 	//Enables or disables normal recording
 
 	if(isset($_POST['recording'])){
-
-		if($_POST['recording'] == True){
-
-			shell_exec("/var/www/commands/startRecording.sh");
+		if($_POST['recording'] == "true"){
+			shell_exec(". /var/www/commands/startRecording.sh &");
 
 		}else{
 
-			shell_exec("pkill rec");
+			shell_exec("pkill rec &");
+                }
+	}
+
+	//Enables and disables timeExpansion recording_button
+
+	if(isset($_POST['timeExpansion'])){
+
+		if($_POST['timeExpansion'] == "false"){
+
+			shell_exec("pkill -6 sox; pkill -6 aplay");
 
 		}
 

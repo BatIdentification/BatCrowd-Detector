@@ -73,9 +73,9 @@
       var response = jQuery.parseJSON(status);
       if(response['gps_status'] == 0){
         clientLocation();
-        setTimeout(setupLocation, 10000);
       }else if(response['gps_status'] == 1){
         $("#gps_status").removeClass("greyed");
+        setTimeout(setupLocation, 10000);
       }else if(response['gps_status'] == 2){
         clientLocation(false);
         setTimeout(setupLocation, 10000);
@@ -84,8 +84,9 @@
     })
 
   }
-
+  
   function clientLocation(repeat = true){
+
     navigator.geolocation.getCurrentPosition(
       function(position){
         $("#gps_status").removeClass("greyed");
@@ -96,10 +97,21 @@
       },
       function(error){
         $("#gps_status").addClass("greyed");
-        setTimeout(clientLocation, 1 * 60 * 1000);
-        console.log(error)
+        switch (error.code){
+          case error.TIMEOUT:
+            alert("Sorry, there were an issue while getting your location");
+            break;
+          case error.PERMISSION_DENIED:
+            //The browser is blocking us since we are not using https
+            alert("Sorry, due to restrictions with Chrome we are unable to detect your location.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert("Sorry, your position is currently unavailable");
+            break;
+        }
       }
     );
+
   }
 
   $(document).ready(function(){

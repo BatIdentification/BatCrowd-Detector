@@ -14,3 +14,5 @@ audiofiles/
 commands/variables/
 
 commands/variables/wifiState.txt
+
+*.db

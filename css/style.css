@@ -284,3 +284,11 @@
 #sound_activated_status > h4{
 	margin-bottom:6%;
 }
+
+#previousPage, #nextPage{
+	-webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}

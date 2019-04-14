@@ -8,3 +8,7 @@ audiofiles/\.DS_Store
 \.DS_Store
 
 log\.txt
+
+vendor/*
+
+audiofiles/*

@@ -31,7 +31,7 @@
         $this->provider = new \League\OAuth2\Client\Provider\GenericProvider([
           'clientId' => '7DOKVNGQC2N8D1I7JRY0MT6VPL0YO4ZZ',
           'clientSecret' => '73PKBLqyPRsGVMaWivow96bfsbUYcN1iaUbXGQuzf5rnkRi6a6YQrA76cxW2HlOchRju99IfWHxC8D1A',
-          'redirectUri' => 'http://batpi.loc/endpoints/auth.php',
+          'redirectUri' => 'http://batcrowd.local/endpoints/auth.php',
           'response_type' => 'code',
           'urlAuthorize' => $this->apiUrl . 'authorize',
           'urlAccessToken' => $this->apiUrl . 'token',

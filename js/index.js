@@ -66,11 +66,60 @@
 
   }
 
+  function setupLocation(){
+
+    $.get("endpoints/location.php", {gps_status: 0}, function(status){
+
+      var response = jQuery.parseJSON(status);
+      if(response['gps_status'] == 0){
+        clientLocation();
+      }else if(response['gps_status'] == 1){
+        $("#gps_status").removeClass("greyed");
+        setTimeout(setupLocation, 10000);
+      }else if(response['gps_status'] == 2){
+        clientLocation(false);
+        setTimeout(setupLocation, 10000);
+      }
+
+    })
+
+  }
+  
+  function clientLocation(repeat = true){
+
+    navigator.geolocation.getCurrentPosition(
+      function(position){
+        $("#gps_status").removeClass("greyed");
+        $.post("endpoints/location.php", {lat: position.coords.latitude, lng: position.coords.longitude});
+        if(repeat){
+          setTimeout(clientLocation, 5 * 60 * 1000);
+        }
+      },
+      function(error){
+        $("#gps_status").addClass("greyed");
+        switch (error.code){
+          case error.TIMEOUT:
+            alert("Sorry, there were an issue while getting your location");
+            break;
+          case error.PERMISSION_DENIED:
+            //The browser is blocking us since we are not using https
+            alert("Sorry, due to restrictions with Chrome we are unable to detect your location.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert("Sorry, your position is currently unavailable");
+            break;
+        }
+      }
+    );
+
+  }
+
   $(document).ready(function(){
     //Setup the page
     tellBatPiTime();
     addPageButtons();
     getDetectorStatus();
+    setupLocation();
     //Start and stop soundactivated recording
     $(".sound_activated_button").click(function(){
       $.post("commands.php", {sound_activated: $(this).val()});
@@ -103,4 +152,5 @@
     $("#detector_status_stop").click(function(){
       stopCurrent();
     });
+
   })

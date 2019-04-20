@@ -10,3 +10,9 @@ audiofiles/\.DS_Store
 vendor/
 
 audiofiles/
+
+commands/variables/
+
+commands/variables/wifiState.txt
+
+*.db

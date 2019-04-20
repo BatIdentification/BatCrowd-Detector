@@ -1,6 +1,7 @@
 <?php
 
   require_once("../includes/dbconnect.php");
+  require_once("../includes/LocationHandler.php");
 
   $dir = getcwd() . '/../database/batpi.db';
 
@@ -47,6 +48,16 @@
     $params = [];
 
     $allowed_keys = ['url', 'date_recorded', 'lat', 'lng'];
+
+    if(!isset($_POST['lat']) && !isset($_POST['lng'])){
+
+      $handler = new LocationHandler($db);
+
+      $pos = $handler->getPosition();
+
+      $_POST += ["lat"=>$pos["lat"], "lng"=>$pos['lng']];
+      
+    }
 
     $toInsert = array_intersect($allowed_keys, array_keys($_POST));
 

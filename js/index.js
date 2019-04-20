@@ -2,6 +2,7 @@
   var count_interval;
   var responses = {1: "Sound-activated recording", 2: "Recording", 3: "Time-expansion", 4: "Hetrodyning"}
   var currentStatus = 0;
+  var locTimeout;
 
   function stopCurrent(){
 
@@ -71,6 +72,7 @@
     $.get("endpoints/location.php", {gps_status: 0}, function(status){
 
       var response = jQuery.parseJSON(status);
+      console.log(response);
       if(response['gps_status'] == 0){
         clientLocation();
       }else if(response['gps_status'] == 1){
@@ -78,13 +80,13 @@
         setTimeout(setupLocation, 10000);
       }else if(response['gps_status'] == 2){
         clientLocation(false);
-        setTimeout(setupLocation, 10000);
+        locTimeout = setTimeout(setupLocation, 10000);
       }
 
     })
 
   }
-  
+
   function clientLocation(repeat = true){
 
     navigator.geolocation.getCurrentPosition(
@@ -92,11 +94,13 @@
         $("#gps_status").removeClass("greyed");
         $.post("endpoints/location.php", {lat: position.coords.latitude, lng: position.coords.longitude});
         if(repeat){
+          console.log("I got a position");
           setTimeout(clientLocation, 5 * 60 * 1000);
         }
       },
       function(error){
         $("#gps_status").addClass("greyed");
+        clearTimeout(locTimeout);
         switch (error.code){
           case error.TIMEOUT:
             alert("Sorry, there were an issue while getting your location");

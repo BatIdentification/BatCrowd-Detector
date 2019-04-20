@@ -44,7 +44,7 @@
       $stmt->execute([":token" => $accessToken->getToken(), ":refresh" => $accessToken->getRefreshToken(), ":expires" => $accessToken->getExpires()]);
       $stmt = null;
 
-      header("Location: ../hello.php");
+      header("Location: ../batidentification.php");
 
     }catch(\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e){
        echo "Error";

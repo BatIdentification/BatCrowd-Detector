@@ -83,11 +83,11 @@
 								<p>Wifi</p>
 						</div>
 						<div class="setting-category">
-							<div>
+							<!-- <div>
 								<p class="setting-title">Current wifi mode:</p>
 								<a id='ap' class="setting-option">Access Point</a>
 								<a id='client' class="setting-option">Client</a>
-							</div>
+							</div> -->
 							<div>
 								<p class="setting-title">Available networks</p>
 								<table id="available-networks">

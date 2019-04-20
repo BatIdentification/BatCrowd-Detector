@@ -1,8 +1,4 @@
 <html>
-	<?php
-		putenv("commands/setupAudioCard.sh");
-		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
-  ?>
 	<head>
 		<title>BatPi</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

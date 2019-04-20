@@ -75,7 +75,7 @@
 			function playTimeExpansion(source, amplify){
 
 				$.post("endpoint.php", {time_expansion: source, output: speakerStatus, amplifyAudio: amplify}, function(data){
-					if(source == 0){
+					if(speakerStatus == 0){
 						audio = new Audio("time-expansion-audio/" + source);
 						audio.play();
 					}

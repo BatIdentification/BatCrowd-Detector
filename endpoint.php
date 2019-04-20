@@ -35,10 +35,12 @@
 
   if(isset($_POST['live_spectrogram'])){
 
-    if($_POST['live_spectrogram'] == true){
-      shell_exec("commands/liveSpectrogram.sh > log.txt 2>&1 &");
-    }elseif($_POST['live_spectrogram'] == false){
+    if($_POST['live_spectrogram'] == "true"){
       shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
+      shell_exec("commands/liveSpectrogram.sh > log.txt 2>&1 &");
+    }elseif($_POST['live_spectrogram'] == "false"){
+      shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
+      echo('{"success": "true"}');
     }
 
   }

@@ -97,4 +97,16 @@
 
   }
 
+  if(isset($_GET['status'])){
+
+    // Code has to be made omn the Raspberry Pi
+
+   $status = rtrim(shell_exec(". commands/status.sh"));
+
+   $status = $status != "" ? $status : 0;
+
+   echo('{"status":' . $status . '}');
+
+  }
+
 ?>

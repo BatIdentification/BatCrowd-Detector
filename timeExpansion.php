@@ -85,37 +85,11 @@
 		</script>
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapseable">
-					 	<span class="sr-only">Toggle navigation</span>
-					 	<span class="icon-bar"></span>
-					 	<span class="icon-bar"></span>
-					 	<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.php">BatPi</a>
-				</div>
-				<div class="collapse navbar-collapse" id="collapseable">
-					<ul class="nav navbar-nav">
-						<li><a id="shutdown">Shutdown</a></li>
-						<li><a href="settings.php">Settings</a></li>
-					</ul>
-					<ul class="nav navbar-nav side-nav">
-						<h4>Audio files</h3>
-						<li><a id="live-audio" class="audiofile">Live</a></li>
-						<?php
-						  $files = scandir(getcwd() . '/audiofiles', SCANDIR_SORT_DESCENDING);
-							foreach($files as $key => $value){
-								if(strpos($value, ".wav") !== false && $value != "liveSpec.wav"){
-									echo("<li><a class='audiofile'>{$value}</a></li>");
-								}
-							}
-						?>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<?php
+			$audio = true;
+			$liveAvailable = true;
+			include("includes/navigation.php");
+		?>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-10">
@@ -133,7 +107,7 @@
 						</div>
 						<div>
 						<a id='speaker-status'>Current: Detector's Speakers</a>
-						<a href="?stop"><button class="stop-button">Stop</button></a>
+						<button id="stop_action" value="timeExpansion">Stop</button></a>
 						</div>
 						<span>Amplify:<input type="checkbox" id="amplify"></span>
 					</div>

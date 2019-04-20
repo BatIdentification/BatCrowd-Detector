@@ -1,3 +1,9 @@
+body{
+
+	margin: 0 0 2% 0;
+
+}
+
 .navbar-default{
 	border-radius:0px;
 }
@@ -34,6 +40,13 @@
 	background-color:white;
 	width:80%;
 	height:15%;
+	border:0.5px black solid;
+	border-radius:3px;
+}
+#detector_status_stop{
+	background-color:white;
+	width:30%;
+	height:5%;
 	border:0.5px black solid;
 	border-radius:3px;
 }
@@ -237,12 +250,12 @@
 }
 
 .header-div p{
-	margin: 0 0 0px;
+	margin: 0 auto 0 -22;
 	font-size:17px;
   display: inline;
 }
 
-#sound_activated_status{
+#detector_status{
 
 	border-radius:3px;
 	box-shadow: 0 0 0 1.25px rgba(200, 215, 225, 0.5), 0 1px 2px #e9eff3;;
@@ -250,9 +263,100 @@
 	margin-top:3%;
 	padding:0.5% 2% 1% 2%;
 	display:none;
+	margin-bottom:7%;
 
 }
 
-#sound_activated_status > h4{
+#detector_status > h4{
 	margin-bottom:6%;
+}
+
+#batidentification-logo{
+	width:20%;
+}
+
+.batid-connect > p{
+	font-family: Verdana;
+}
+
+.batid-connect > button{
+
+	margin-bottom:2%;
+
+}
+
+.disclaimer{
+
+	font-size:9px;
+
+}
+
+.batid-settings{
+	display:none;
+}
+
+.bat-call:nth-child(odd){
+	background-color:#f2f2f2;
+}
+
+.bat-call{
+	text-align:left;
+}
+
+.bat-call > .row{
+	display:flex;
+}
+
+.bat-call > .row > .col-md-2{
+	display:flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.option-link{
+	cursor:pointer;
+	text-decoration:underline;
+	color:black;
+}
+
+#latlng label{
+	font-size:16px;
+}
+
+#latlng .input-group{
+	width:100%;
+	display:flex;
+	align-items: center;
+	margin-bottom:2%;
+}
+
+#latlng .input-group > input{
+	margin:0 auto;
+}
+
+#warning-label{
+	color:red;
+	display:none;
+	text-align:center;
+}
+
+#success-label{
+	color:green;
+	display:none;
+	text-align:center;
+}
+
+#sa_count{
+	display:none;
+}
+
+#gps_status{
+	width:22px;
+	height:30px;
+	float:left;
+}
+
+.greyed{
+	opacity: 0.4;
+  filter: alpha(opacity=40);
 }

@@ -56,6 +56,7 @@ function addPageButtons(){
 	}
 	foundPlayingFile = 2;
 }
+
 //Page stuff
 $(document).ready(function(){
 	$.post('endpoint.php', {live_spectrogram: false}, function(data){
@@ -86,4 +87,9 @@ $(document).ready(function(){
 	$("#shutdown").click(function(){
 		$.post("commands.php", {shutdown: true});
 	});
+	$("#stop_action").click(function(event){
+		data = {}
+		data[$(event.target).val()] = false;
+		$.post("commands.php", data);
+	})
 });

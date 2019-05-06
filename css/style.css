@@ -27,22 +27,35 @@ body{
 }
 
 .actions{
-	min-height:50%;
+	min-height:55%;
 }
 
 .actions>.row>.col-sm-4{
 	text-align:center;
+	height:100%;
+	display: flex;
+	align-items: center;
 }
 .actions>.row>.col-sm-4>a{
 	color:black;
 }
 .option{
 	background-color:white;
-	width:80%;
-	height:15%;
 	border:0.5px black solid;
 	border-radius:3px;
 }
+
+.actions>.row>.col-sm-4>a, .actions>.row>.col-sm-4>.option{
+	width:80%;
+	height:100px;
+	margin: 0 auto;
+}
+.actions>.row>.col-sm-4>a>.option{
+	width:100%;
+	height:100%;
+}
+
+
 #detector_status_stop{
 	background-color:white;
 	width:30%;
@@ -253,7 +266,6 @@ body{
 }
 
 .header-div p{
-	margin: 0 auto 0 -22;
 	font-size:17px;
   display: inline;
 }
@@ -392,6 +404,8 @@ body{
 	width:22px;
 	height:30px;
 	float:left;
+	position:absolute;
+	top:13;
 }
 
 .greyed{

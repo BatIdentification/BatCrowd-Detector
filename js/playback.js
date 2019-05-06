@@ -1,8 +1,7 @@
 //********* Define our variables *********** \\
 
 var getVariables = getUrlVars();
-var speakerStatus = getVariables['status'] == undefined ? "BatPi'sSpeaker" : getVariables['status']
-var fileName = getVariables['fileName'];
+var speakerStatus = getVariables['status'] == undefined ? "DetectSpeaker" : getVariables['status']
 var playback = "time-expansion";
 var audio;
 
@@ -56,6 +55,8 @@ $(document).ready(function(){
   //
   $(".audiofile").click(function(event){
     source = $(event.target)[0].innerHTML;
+    $(".audiofile").removeClass("selected");
+    $(event.target).addClass("selected");
     if(speakerStatus == 'Internal Speakers'){
       playAudio(source, playback, function(){
         var postData = {output: "Internal", source: source}

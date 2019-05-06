@@ -21,49 +21,6 @@
      echo '{"status": 1}';
   }
 
-  if(isset($_POST['spectrogram'])){
-
-    if(!file_exists("spectrogram-images/{$_POST['spectrogram']}.png")){
-      shell_exec("sox audiofiles/{$_POST['spectrogram']} -n remix 1 rate 192k spectrogram -o spectrogram-images/{$_POST['spectrogram']}.png >> log.txt & wait; cp 'spectrogram-images/{$_POST['spectrogram']}.png' spec.png");
-      echo("Created new spectrogram");
-    }else{
-      shell_exec("cp -p 'spectrogram-images/{$_POST['spectrogram']}.png' spec.png");
-      echo("Copied old spectrogram");
-    }
-
-  }
-
-  if(isset($_POST['live_spectrogram'])){
-
-    if($_POST['live_spectrogram'] == "true"){
-      shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
-      shell_exec("commands/liveSpectrogram.sh > log.txt 2>&1 &");
-    }elseif($_POST['live_spectrogram'] == "false"){
-      shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
-      echo('{"success": "true"}');
-    }
-
-  }
-
-  if(isset($_POST['time_expansion'])){
-
-    if(isset($_POST['output'])){
-
-      if($_POST['output'] == "0"){
-        shell_exec("sox audiofiles/{$_POST['time_expansion']} -c 2 time-expansion-audio/{$_POST['time_expansion']} speed 0.1");
-        die('{"success": true}');
-      }elseif($_POST['output'] == "1"){
-        shell_exec("commands/timeExpansion.sh {$_POST['time_expansion']} > /dev/null &");
-	die('{"success": true}');
-     }
-
-    }else{
-      echo('{"error": "missing parameter", "error_description": "Please provide where you want the sound to be outputed to"}');
-    }
-
-  }
-
-
   if(isset($_GET['networks'])){
 
     $networks = array();

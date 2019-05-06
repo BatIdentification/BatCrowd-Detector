@@ -15,16 +15,17 @@
 				addPageButtons();
 				$(".audiofile").click(function(event){
 					source = $(event.target)[0].innerHTML;
+					$(".audiofile").removeClass("selected");
 					$(event.target).addClass("selected");
 					if(source == "Live"){
-						$.post('endpoint.php', {live_spectrogram: true}, function(data){
+						$.post('commands.php', {live_spectrogram: true}, function(data){
 							setInterval(function(){
 									var randInt = Math.random();
 									$("#spectrogram-img").attr("src", "spec.png?v=" + randInt);
 							}, 4000);
 						});
 					}else{
-						$.post('endpoint.php', {spectrogram: source}, function(data){
+						$.post('commands.php', {spectrogram: source}, function(data){
 							console.log(data);
 							$("#spectrogram-img").attr("src", "spec.png?v=" + new Date().getTime());
 						});

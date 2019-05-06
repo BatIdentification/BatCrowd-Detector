@@ -1,20 +1,4 @@
-<?php
-	// if(isset($_GET['f'])){
-	// 	if($_GET['status'] == "Internal Speakers"){
-	// 		if($_GET['playback'] == "time-expansion"){
-	// 			shell_exec("sox audiofiles/{$_GET['f']} -c 2 time-expansion-audio/{$_GET['f']} speed 0.1 &");
-	// 		}else{
-	// 			shell_exec("commands/heterodyne.sh {$_GET['f']} internal > /dev/null");
-	// 		}
-	// 	}else{
-	// 		if($_GET['playback'] == "time-expansion"){
-	// 			shell_exec("commands/timeExpansion.sh {$_GET['f']} > /dev/null");
-	// 		}else{
-	// 			shell_exec("commands/heterodyne.sh {$_GET['f']} external > /dev/null");
-	// 		}
-	// 	}
-	// }
-?>
+
 <html>
 	<head>
 		<title>Playback</title>
@@ -76,7 +60,7 @@
 						</div>
 						<div class="row output-options">
 							<div class="col-sm-6">
-								<img class="img-button" src="images/external-speakers.png" value="Dectector's Speakers">
+								<img class="img-button" src="images/external-speakers.png" value="Detector's Speakers">
 							</div>
 							<div class="col-sm-6">
 								<img class="img-button" src="images/internal-speakers.png" value="Internal Speakers">

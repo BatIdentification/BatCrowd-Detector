@@ -1,0 +1,3 @@
+[submodule "commands/bat-heterodyne"]
+	path = commands/bat-heterodyne
+	url = https://github.com/richardbeattie/bat-heterodyne.git

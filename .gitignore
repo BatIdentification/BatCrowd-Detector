@@ -6,3 +6,12 @@ css/\.DS_Store
 audiofiles/\.DS_Store
 
 \.DS_Store
+
+log\.txt
+
+vendor/*
+
+commands/variables/
+commands/variables/wifiState.txt
+*.db
+audiofiles/*

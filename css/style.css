@@ -1,3 +1,9 @@
+body{
+
+	margin: 0 0 2% 0;
+
+}
+
 .navbar-default{
 	border-radius:0px;
 }
@@ -34,6 +40,13 @@
 	background-color:white;
 	width:80%;
 	height:15%;
+	border:0.5px black solid;
+	border-radius:3px;
+}
+#detector_status_stop{
+	background-color:white;
+	width:30%;
+	height:5%;
 	border:0.5px black solid;
 	border-radius:3px;
 }
@@ -94,7 +107,7 @@
 }
 
 #speaker-status{
-	margin-top:5%;
+	margin-top:1%;
 	display:block;
 	text-decoration:none;
 	color:black;
@@ -105,8 +118,9 @@
 }
 
 .unavailable{
-	cursor:not-allowed;
+	cursor:not-allowed !important;
 	opacity:0.5;
+	pointer-events: none;
 }
 .unavailable:hover{
 	color: #777 !important;
@@ -231,18 +245,46 @@
 
 .header-div{
 	border-bottom: 1px solid #e9eff3;
-	padding: 15px;
+	padding: 3% 3% 0 3%;
 	position: relative;
 	text-align:center;
+	display: flex;
+	flex-direction: column;
 }
 
 .header-div p{
-	margin: 0 0 0px;
+	margin: 0 auto 0 -22;
 	font-size:17px;
   display: inline;
 }
 
-#sound_activated_status{
+.header-div > .header-options{
+	display:flex;
+	width:100%;
+	justify-content: space-around;
+}
+
+.header-div > .header-options > li > .header-option{
+	text-decoration:none;
+	cursor:pointer;
+	color:black;
+}
+
+.header-div > .header-options > li > .header-option{
+	text-decoration:none;
+	cursor:pointer;
+	color:black;
+}
+
+.header-div > .header-options > li > .header-option:hover{
+	background-color: #d9d9d9;
+}
+
+.header-div > .header-options > li > .header-option-active{
+	background-color: #eee;
+}
+
+#detector_status{
 
 	border-radius:3px;
 	box-shadow: 0 0 0 1.25px rgba(200, 215, 225, 0.5), 0 1px 2px #e9eff3;;
@@ -250,9 +292,118 @@
 	margin-top:3%;
 	padding:0.5% 2% 1% 2%;
 	display:none;
+	margin-bottom:7%;
 
 }
 
-#sound_activated_status > h4{
+#detector_status > h4{
 	margin-bottom:6%;
+}
+
+#previousPage, #nextPage{
+	-webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+
+}
+
+#batidentification-logo{
+	width:20%;
+}
+
+.batid-connect > p{
+	font-family: Verdana;
+}
+
+.batid-connect > button{
+
+	margin-bottom:2%;
+
+}
+
+.disclaimer{
+
+	font-size:9px;
+
+}
+
+.batid-settings{
+	display:none;
+}
+
+.bat-call:nth-child(odd){
+	background-color:#f2f2f2;
+}
+
+.bat-call{
+	text-align:left;
+}
+
+.bat-call > .row{
+	display:flex;
+}
+
+.bat-call > .row > .col-md-2{
+	display:flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.option-link{
+	cursor:pointer;
+	text-decoration:underline;
+	color:black;
+}
+
+#latlng label{
+	font-size:16px;
+}
+
+#latlng .input-group{
+	width:100%;
+	display:flex;
+	align-items: center;
+	margin-bottom:2%;
+}
+
+#latlng .input-group > input{
+	margin:0 auto;
+}
+
+#warning-label{
+	color:red;
+	display:none;
+	text-align:center;
+}
+
+#success-label{
+	color:green;
+	display:none;
+	text-align:center;
+}
+
+#sa_count{
+	display:none;
+}
+
+#gps_status{
+	width:22px;
+	height:30px;
+	float:left;
+}
+
+.greyed{
+	opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+#frequency{
+	width:30%;
+	margin: 0 auto;
+}
+
+.frequency-control{
+	display:none;
 }

@@ -17,11 +17,11 @@
 
 		if($_POST['sound_activated'] == "true"){
 
-			shell_exec("/var/www/commands/startSoundActivatedRecording.sh &");
+			shell_exec("/var/www/html/commands/startSoundActivatedRecording.sh &");
 
 		}else{
 			echo("Stopping ");
-			shell_exec("pkill -f /var/www/commands/startSoundActivatedRecording.sh; pkill -9 rec;");
+			shell_exec("pkill -f /var/www/html/commands/startSoundActivatedRecording.sh; pkill -9 rec;");
 			//Delete all the empty wav files so they don't clutter up the directory
 			shell_exec("find *.wav -type f -size -100 -delete");
 
@@ -32,13 +32,17 @@
 	//Enables or disables normal recording
 
 	if(isset($_POST['recording'])){
+
 		if($_POST['recording'] == "true"){
-			shell_exec(". /var/www/commands/startRecording.sh &");
+
+			$output = shell_exec("/var/www/html/commands/startRecording.sh");
 
 		}else{
 
 			shell_exec("pkill rec &");
-                }
+
+    }
+
 	}
 
 	//Starts and stops timeExpansion playback

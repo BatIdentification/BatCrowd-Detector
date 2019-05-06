@@ -23,13 +23,13 @@
         $gpsd = shell_exec("timout 20 gpspipe -w -n 4");
 
         if(strpos($gpsd, "lat") === false){
-          return 0;
+          return 2;
         }else{
           return 1;
         }
 
       }else{
-        return 2;
+        return 0;
       }
 
     }

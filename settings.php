@@ -1,11 +1,6 @@
 <html>
 	<?php
 		shell_exec("pkill -f /bin/bash\ commands/liveSpectrogram.sh");
- 		if(isset($_POST['password']) && isset($_POST['ssid'])){
-			$newConfig = 'network={ ssid="'.$_POST['ssid'].'" psk="'.$_POST['password'].'"}';
-			$file = "/etc/wpa_supplicant/wpa_supplicant.conf";
-			file_put_contents($file, $newConfig, FILE_APPEND);
-		}
 	?>
 	<head>
 		<title>BatPi</title>
@@ -25,13 +20,33 @@
 				$(".setting-option:not(.seleted)").click(function(){
 					 $.post("commands.php", {toggleWifi: true});
 				});
-				$.post('endpoint.php', {networks: true}, function(data){
+				$.get('endpoint.php', {networks: true}, function(data){
 					response = jQuery.parseJSON(data);
 					for(var i = 0; i < response['networks'].length; i++){
 						current = response['networks'][i]
 						networkRow = $(`<tr><td>${current[0]}</td><td>${current[1]}</td><td><a class='new-network'>${current[2]}</a></td></tr>`);
 						$("#available-networks").append($(networkRow));
 					}
+				})
+				$.get('endpoint.php', {network_status: true}, function(data){
+					response = jQuery.parseJSON(data);
+					if(response['status'] == 0){
+						$("a#ap").addClass("selected");
+					}else if(response['status'] == 1){
+						$("a#client").addClass("selected");
+					}
+				});
+				$("#new_network_form").on("submit", function(e){
+					e.preventDefault();
+					$(".popup").toggle();
+					data = $("#new_network_form").serializeArray();
+					console.log(data);
+					$.post("endpoint.php", {new_network_ssid: data[1]["value"], new_network_password: data[0]["value"]}, function(response){
+						json = jQuery.parseJSON(response)
+						if(json['success'] == 0){
+							alert("Sorry, something went wrong")
+						}
+					})
 				})
 			})
 		</script>
@@ -48,11 +63,11 @@
 								<p>Wifi</p>
 						</div>
 						<div class="setting-category">
-							<div>
+							<!-- <div>
 								<p class="setting-title">Current wifi mode:</p>
-								<a class="setting-option selected">Access Point</a>
-								<a class="setting-option">Client</a>
-							</div>
+								<a id='ap' class="setting-option">Access Point</a>
+								<a id='client' class="setting-option">Client</a>
+							</div> -->
 							<div>
 								<p class="setting-title">Available networks</p>
 								<table id="available-networks">
@@ -74,7 +89,7 @@
 						<p>Add new network</p>
 				</div>
 				<div class="popup-content">
-					<form method="POST" action="">
+					<form id="new_network_form">
 						<div class="form-group">
 							<p>Please enter the wifi password:</p>
 							<br>

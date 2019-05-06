@@ -1,8 +1,7 @@
 //********* Define our variables *********** \\
 
 var getVariables = getUrlVars();
-var speakerStatus = getVariables['status'] == undefined ? "Detector's Speaker" : getVariables['status']
-var fileName = getVariables['fileName'];
+var speakerStatus = getVariables['status'] == undefined ? "DetectSpeaker" : getVariables['status']
 var playback = "time-expansion";
 var audio;
 

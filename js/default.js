@@ -70,7 +70,7 @@ function addPageButtons(){
 
 //Page stuff
 $(document).ready(function(){
-	$.post('endpoint.php', {live_spectrogram: false}, function(data){
+	$.post('commands.php', {live_spectrogram: false}, function(data){
 		console.log("Stopped the live spectrogram process");
 	})
 	//Code for setting up the audio-files side-bar

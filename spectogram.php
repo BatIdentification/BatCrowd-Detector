@@ -22,7 +22,7 @@
 							setInterval(function(){
 									var randInt = Math.random();
 									$("#spectrogram-img").attr("src", "spec.png?v=" + randInt);
-							}, 4000);
+							}, 2000);
 						});
 					}else{
 						$.post('commands.php', {spectrogram: source}, function(data){

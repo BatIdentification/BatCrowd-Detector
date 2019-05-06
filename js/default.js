@@ -12,6 +12,17 @@ function tellBatPiTime(){
 	$.post("commands.php", {time: currentDate});
 }
 
+//
+// Used to retrieve the GET variables from the URL
+//
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
 function addPageButtons(){
 	foundElement = undefined;
 	sideNav = $(".side-nav")[0];

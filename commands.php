@@ -45,13 +45,60 @@
 
 	}
 
-	//Enables and disables timeExpansion recording_button
+	//Starts and stops timeExpansion playback
+	//Has to handle following events
+	//Stop -> If true, stop whatever is running
+	//Internal or external -> Either output directly or create a file
 
-	if(isset($_POST['timeExpansion'])){
+	if(isset($_POST['time-expansion'])){
 
-		if($_POST['timeExpansion'] == "false"){
+		$output = isset($_POST['output']) ? $_POST['output'] : "External";
 
-			shell_exec("sudo pkill -6 sox; sudo pkill -6 aplay");
+		if($_POST['time-expansion'] == "false"){
+			shell_exec("pkill -6 sox; pkill -6 aplay");
+			echo('{"success": true}');
+		}elseif(isset($_POST['source'])){
+
+			if($_POST['output'] == "Internal"){
+
+				shell_exec("sox audiofiles/{$_POST['source']} -c 2 time-expansion-audio/{$_POST['source']} speed 0.1 &");
+				echo('{"success": true}');
+
+			}elseif($_POST['output'] == "External"){
+
+			 	shell_exec("commands/timeExpansion.sh {$_POST['source']} > /dev/null");
+				echo('{"success": true}');
+
+			}
+
+		}else{
+			echo '{"error": "Insufficent data provided"}';
+		}
+
+	}
+
+	if(isset($_POST['heterodyne']) && isset($_POST['source'])){
+
+		$output = isset($_POST['output']) ? $_POST['output'] : "External";
+
+		if($_POST['heterodyne'] == false){
+			shell_exec("pkill -6 sox; pkill -6 aplay");
+			echo('{"success": true}');
+		}else{
+
+			$frequency = isset($_POST['$frequency']) ? $_POST['$frequency'] : 50000;
+
+			if($_POST['output'] == "Internal"){
+
+				shell_exec("commands/bat-heterodyne/heterodyne.sh -i audiofiles/{$_POST['source']} -f {$frequency} -o heterodyne-audio/{$_POST['source']}");
+				echo('{"success": true}');
+
+			}elseif($_POST['output'] == "External"){
+
+				shell_exec("commands/bat-heterodyne/heterodyne.sh -i audiofiles/{$_POST['source']} -f {$frequency} -p");
+				echo('{"success": true}');
+
+			}
 
 		}
 

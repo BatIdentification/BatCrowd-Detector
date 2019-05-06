@@ -11,8 +11,10 @@
     if(currentStatus == 1){
       $.post("commands.php", {sound_activated: false});
       clearInterval(count_interval);
+      location.reload(true)
     }else if(currentStatus == 2){
       $.post("commands.php", {recording: false});
+      location.reload(true)
     }else if(currentStatus == 3){
       $.post("commands.php", {timeExpansion: false});
     }else if(currentStatus == 4){
@@ -149,6 +151,7 @@
         currentStatus = 2;
       }else{
           $("#detector_status").hide();
+          location.reload(true);
       }
 
     })

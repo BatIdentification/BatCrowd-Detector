@@ -103,4 +103,30 @@
 		}
 
 	}
+
+	//Spectrograms
+	if(isset($_POST['spectrogram'])){
+
+    if(!file_exists("spectrogram-images/{$_POST['spectrogram']}.png")){
+      shell_exec("sox audiofiles/{$_POST['spectrogram']} -n remix 1 rate 192k spectrogram -o spectrogram-images/{$_POST['spectrogram']}.png & wait; cp 'spectrogram-images/{$_POST['spectrogram']}.png' spec.png");
+      echo("Created new spectrogram");
+    }else{
+      shell_exec("cp -p 'spectrogram-images/{$_POST['spectrogram']}.png' spec.png");
+      echo("Copied old spectrogram");
+    }
+
+  }
+
+  if(isset($_POST['live_spectrogram'])){
+
+    if($_POST['live_spectrogram'] == "true"){
+      shell_exec("pkill -f commands/liveSpectrogram.sh");
+      shell_exec("commands/liveSpectrogram.sh > log.txt 2>&1 &");
+			echo('{"success": "true"}');
+    }elseif($_POST['live_spectrogram'] == "false"){
+      shell_exec("pkill -f commands/liveSpectrogram.sh");
+      echo('{"success": "true"}');
+    }
+
+  }
 ?>

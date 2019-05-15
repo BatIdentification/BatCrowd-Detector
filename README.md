@@ -1,5 +1,5 @@
 # BatCrowd's Detector
-A multi-functional and multi-use bat detector. The Bat-Pi aims to reduce the costs incurred to monitor and identify bat species while not significantly comprimsing on quality when compared to commerical bat detectors.
+A multi-functional and multi-use bat detector. The BatCrowd Detector aims to reduce the costs incurred to monitor and identify bat species while not significantly comprimsing on quality when compared to commerical bat detectors.
 <br>
 
 <h2>Features</h2>
@@ -8,56 +8,22 @@ A multi-functional and multi-use bat detector. The Bat-Pi aims to reduce the cos
   <li>Sound-activated recording</li>
   <li>Spectogram display</li>
   <li>Time Expansion Playback</li>
+  <li>Heterodyne Playback</li>
+  <li>Automatically uploads to BatIdentification.com</li>
 </ul>
   
-These files are all time-stamped without the use of a RTC(Real-time clock) module by having client devices send the time to the BatPi
+These files are all time-stamped without the use of a RTC (Real-time clock) module by having client devices send the time to the BatPi. The detector can use either a GPS module or a client's GPS module to add geolocation to bat call entries in the database.
 
 <h2>Setting up</h2>
 
-The code included in this repository is for the Bat-Pi's web-interface. To get started with the BatPi follow these steps:
+The code included in this repository is for the BatCrowd Detector's webinterface. To setup everything and download the software you can download our script from:
 
-<h4> Installing Apache2 and PHP </h4>
-
-First install apache2 by performing
-```bash
-sudo apt-get install apache2 -y
-```
-
-Then install php
-```bash
-sudo apt-get install php libapache2-mod-php -y
-```
-
-<h4>Setting up the BatPi's own network</h4>
-
-Follow this tutorial to make the BatPi setup its own wifi access point 
-
-https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point/
-
-<h4> Clone BatPi </h4>
-
-Change your working directory to <b> /var/www/ </b> and remove all the files
-```bash
-cd /var/www; rm *;
-```
-
-Clone the BatPi into here
-
-```bash
-git clone https://github.com/richardbeattie/Bat-Pi.git
-``` 
-
-Edit your <b>/etc/rc.local</b> to include
-
-```bash
-/var/www/commands/setupAccessPoint.sh &
-/var/www/commands/setupAudioCard.sh &
-```
+<a href="https://github.com/richardbeattie/BatCrowd-Detector-Setup"> https://github.com/richardbeattie/BatCrowd-Detector-Setup</a>
 
 <h3>The future</h3>
 
 <ul>
-  <li>Intergrating the BatPi with the BatIdentification Project</li>
+  <li>Show the current power remaining on the detector</li>
   <li>Improving the speed of the web-interface</li>
   <li>Having a combined spectrogram and time-expansion viewer</li>
   <li>Have the BatPi do the spectrograms and Time Expansion in advance of wanting a file to be played</li>
